@@ -17,8 +17,11 @@ Production deployment for **Spotify Review Analyzer** per [architecture.md](arch
 1. Push the repo to GitHub.
 2. Open [share.streamlit.io](https://share.streamlit.io) → **New app**.
 3. Set **Main file path** to `streamlit_app.py`.
-4. Under **Advanced settings** → **Secrets**, paste the TOML from [`.streamlit/secrets.toml.example`](../.streamlit/secrets.toml.example) and fill in values.
-5. Deploy and note the public URL (e.g. `https://your-app.streamlit.app`).
+4. Under **Secrets**, paste the TOML from [`.streamlit/secrets.toml.example`](../.streamlit/secrets.toml.example) and fill in values.
+5. Click **Save**, then **Reboot app** (required after secret changes).
+6. Deploy and note the public URL (e.g. `https://your-app.streamlit.app`).
+
+**Important:** Secrets belong in the **Secrets** TOML editor, not in generic app settings fields. Use exact key names `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` (or a `[supabase]` section — see example file).
 
 `streamlit_app.py` maps `st.secrets` into environment variables before loading `app.config.Settings`.
 

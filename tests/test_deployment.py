@@ -11,6 +11,7 @@ from src.deploy.secrets import (
     STREAMLIT_SECRET_KEYS,
     SecretCheckResult,
     apply_streamlit_secrets,
+    streamlit_secret_fields,
     verify_secrets,
 )
 from src.deploy.smoke import EXPECTED_PAGES, run_smoke_test
@@ -29,23 +30,34 @@ def test_apply_streamlit_secrets_sets_env(monkeypatch):
     mock_st = MagicMock()
     mock_st.secrets = fake_secrets
 
-    with patch.dict("sys.modules", {"streamlit": mock_st}):
+    with patch("src.deploy.secrets._secrets_mapping", return_value=fake_secrets):
         applied = apply_streamlit_secrets()
 
     assert applied >= 1
     assert os.environ.get("SUPABASE_URL") == "https://example.supabase.co"
 
 
+def test_nested_supabase_secrets(monkeypatch):
+    monkeypatch.delenv("SUPABASE_URL", raising=False)
+    monkeypatch.delenv("SUPABASE_SERVICE_KEY", raising=False)
+    fake_secrets = {
+        "supabase": {
+            "url": "https://nested.supabase.co",
+            "service_key": "nested-key",
+        }
+    }
+
+    with patch("src.deploy.secrets._secrets_mapping", return_value=fake_secrets):
+        fields = streamlit_secret_fields()
+
+    assert fields["supabase_url"] == "https://nested.supabase.co"
+    assert fields["supabase_service_key"] == "nested-key"
+
+
 def test_apply_streamlit_secrets_noop_without_streamlit(monkeypatch):
     monkeypatch.delenv("SUPABASE_URL", raising=False)
-    import sys
-
-    original = sys.modules.pop("streamlit", None)
-    try:
+    with patch("src.deploy.secrets._secrets_mapping", return_value=None):
         applied = apply_streamlit_secrets()
-    finally:
-        if original is not None:
-            sys.modules["streamlit"] = original
     assert applied == 0
 
 

@@ -165,7 +165,10 @@ def render_sidebar() -> None:
         st.sidebar.error("Missing required environment variables:")
         for key in missing:
             st.sidebar.markdown(f"- `{key}`")
-        st.sidebar.caption("Update your `.env` file and restart the app.")
+        st.sidebar.caption(
+            "Local: update `.env` and restart. "
+            "Streamlit Cloud: **Manage app → Secrets** (TOML), then reboot the app."
+        )
     else:
         st.sidebar.success("Configuration loaded")
         st.sidebar.markdown(f"- LLM: `{settings.llm_provider}` / `{settings.active_llm_model()}`")
@@ -194,6 +197,10 @@ def _build_pages() -> list:
 
 
 def main() -> None:
+    from src.deploy.secrets import bootstrap_settings
+
+    bootstrap_settings()
+
     st.set_page_config(
         page_title=APP_NAME,
         page_icon="🎧",

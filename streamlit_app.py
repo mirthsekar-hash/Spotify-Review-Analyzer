@@ -7,11 +7,9 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.config import clear_settings_cache
-from src.deploy.secrets import apply_streamlit_secrets
+from src.deploy.secrets import bootstrap_settings
 
-if apply_streamlit_secrets():
-    clear_settings_cache()
+bootstrap_settings()
 
 from app.main import main
 

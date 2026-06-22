@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from functools import lru_cache
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, PydanticBaseSettingsSource, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -76,6 +76,28 @@ class Settings(BaseSettings):
     @classmethod
     def normalize_provider(cls, value: str) -> str:
         return str(value).strip().lower()
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        def streamlit_settings_source() -> dict[str, Any]:
+            from src.deploy.secrets import streamlit_secret_fields  # noqa: PLC0415
+
+            return streamlit_secret_fields()
+
+        return (
+            init_settings,
+            env_settings,
+            dotenv_settings,
+            streamlit_settings_source,
+            file_secret_settings,
+        )
 
     def missing_required(self) -> list[str]:
         """Return human-readable names of missing required configuration."""
