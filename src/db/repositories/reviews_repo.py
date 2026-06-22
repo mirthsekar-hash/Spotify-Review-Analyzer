@@ -130,6 +130,15 @@ class ReviewsRepository:
         )
         return response.count or 0
 
+    def get_average_rating(self) -> float | None:
+        rows = response_data(
+            self._table.select("rating").not_.is_("rating", "null").execute()
+        )
+        ratings = [int(row["rating"]) for row in rows if row.get("rating") is not None]
+        if not ratings:
+            return None
+        return round(sum(ratings) / len(ratings), 2)
+
     def count_analyzed_by_source(self) -> dict[str, int]:
         rows = response_data(
             self._table.select("source")

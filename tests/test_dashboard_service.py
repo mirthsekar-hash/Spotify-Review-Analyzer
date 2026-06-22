@@ -72,6 +72,10 @@ def test_get_executive_summary_aggregates(mock_check):
     reviews_repo = MagicMock()
     reviews_repo.count_total.return_value = 10
     reviews_repo.count_analyzed.return_value = 8
+    reviews_repo.get_average_rating.return_value = 3.16
+
+    themes_repo = MagicMock()
+    themes_repo.get_all.return_value = [MagicMock(), MagicMock(), MagicMock()]
 
     analysis_repo = MagicMock()
     analysis_repo.get_dashboard_fields.return_value = [
@@ -96,12 +100,15 @@ def test_get_executive_summary_aggregates(mock_check):
         reviews_repo=reviews_repo,
         analysis_repo=analysis_repo,
         pipeline_runs_repo=pipeline_repo,
+        themes_repo=themes_repo,
     )
     summary = service.get_executive_summary()
 
     assert summary.total_reviews == 10
     assert summary.total_analyzed == 8
     assert summary.pending_analysis == 2
+    assert summary.themes_discovered == 3
+    assert summary.avg_rating == 3.16
     assert summary.top_discovery_challenge == "Repetitive playlists"
     assert summary.db_connected is True
 

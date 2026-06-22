@@ -89,26 +89,53 @@ def main() -> None:
 
     render_partial_analysis_banner(summary)
 
+    render_section_title("Portfolio Overview")
+    kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+    with kpi1:
+        render_kpi_card(
+            "Reviews Ingested",
+            f"{summary.total_reviews:,}",
+            help_text="Total reviews stored across all sources",
+        )
+    with kpi2:
+        render_kpi_card(
+            "Themes Discovered",
+            summary.themes_discovered,
+            help_text="Distinct themes from collective analysis",
+        )
+    with kpi3:
+        rating_display = (
+            f"{summary.avg_rating:.2f}★"
+            if summary.avg_rating is not None
+            else "—"
+        )
+        render_kpi_card(
+            "Avg Rating",
+            rating_display,
+            help_text="Average star rating across ingested reviews with ratings",
+        )
+    with kpi4:
+        render_kpi_card(
+            "Analysis Sample",
+            f"{summary.total_analyzed:,}",
+            help_text="Reviews with completed analysis and embeddings",
+            delta=f"{summary.pending_analysis:,} pending" if summary.pending_analysis else None,
+        )
+
     render_section_title("AI Executive Summary")
     ai_summary = load_ai_executive_summary(refresh_key)
     render_executive_ai_summary_from_cache(ai_summary)
     st.divider()
 
-    kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+    render_section_title("Research Highlights")
+    kpi1, kpi2, kpi3 = st.columns(3)
     with kpi1:
-        render_kpi_card(
-            "Reviews Analyzed",
-            summary.total_analyzed,
-            help_text="Reviews with completed analysis and embeddings",
-            delta=f"{summary.pending_analysis} pending" if summary.pending_analysis else None,
-        )
-    with kpi2:
         render_kpi_card(
             "Top Discovery Challenge",
             summary.top_discovery_challenge or "—",
             help_text="Most frequently cited discovery challenge",
         )
-    with kpi3:
+    with kpi2:
         segment_label = summary.most_affected_segment or "—"
         if summary.segment_negative_rate is not None:
             segment_label = f"{segment_label} ({summary.segment_negative_rate}% neg)"
@@ -117,7 +144,7 @@ def main() -> None:
             segment_label,
             help_text="User segment with the highest share of negative sentiment",
         )
-    with kpi4:
+    with kpi3:
         trust_display = (
             f"{summary.recommendation_trust_score:.0f}"
             if summary.recommendation_trust_score is not None

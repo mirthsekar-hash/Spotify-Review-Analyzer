@@ -60,6 +60,8 @@ class ExecutiveSummaryData:
     total_reviews: int = 0
     total_analyzed: int = 0
     pending_analysis: int = 0
+    themes_discovered: int = 0
+    avg_rating: float | None = None
     top_discovery_challenge: str | None = None
     top_discovery_challenge_count: int = 0
     most_affected_segment: str | None = None
@@ -409,6 +411,8 @@ class DashboardService:
 
         total_reviews = self._reviews_repo.count_total()
         total_analyzed = self._reviews_repo.count_analyzed()
+        avg_rating = self._reviews_repo.get_average_rating()
+        themes_discovered = len(self._themes_repo.get_all())
         analysis_rows = self._analysis_repo.get_dashboard_fields()
         sentiment = compute_sentiment_breakdown(analysis_rows)
         top_challenge, top_count = compute_top_discovery_challenge(analysis_rows)
@@ -421,6 +425,8 @@ class DashboardService:
             total_reviews=total_reviews,
             total_analyzed=total_analyzed,
             pending_analysis=max(total_reviews - total_analyzed, 0),
+            themes_discovered=themes_discovered,
+            avg_rating=avg_rating,
             top_discovery_challenge=top_challenge,
             top_discovery_challenge_count=top_count,
             most_affected_segment=segment,

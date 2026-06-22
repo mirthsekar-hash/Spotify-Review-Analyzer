@@ -2,16 +2,12 @@
 
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
 from app.components.branding import render_page_header, render_section_title
-from app.components.journey_sankey import render_journey_sankey, render_journey_steps
-from src.services.journey_service import (
-  JourneyService,
-  JourneyExplorerData,
-  build_sankey_diagram,
-)
+from app.components.journey_flow_chart import render_journey_flow_table, render_journey_paths_chart
+from app.components.journey_sankey import render_journey_steps
+from src.services.journey_service import JourneyService, JourneyExplorerData
 
 
 @st.cache_data(ttl=30, show_spinner="Loading discovery journeys...")
@@ -28,16 +24,7 @@ def render_empty_state() -> None:
 
 
 def render_paths_table(data: JourneyExplorerData) -> None:
-  rows = [
-    {
-      "Rank": index,
-      "Journey path": path.summary,
-      "Reviews": path.frequency,
-      "Negative %": f"{path.negative_pct:.1f}%",
-    }
-    for index, path in enumerate(data.paths, start=1)
-  ]
-  st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+  render_journey_flow_table(data.paths)
 
 
 def render_path_detail(data: JourneyExplorerData) -> None:
@@ -91,7 +78,7 @@ def main() -> None:
   overview_cols[2].metric("Reviews in top paths", data.chain_count)
 
   render_section_title("Journey Flow")
-  render_journey_sankey(build_sankey_diagram(data.paths))
+  render_journey_paths_chart(data.paths, key="discovery_journey_paths_bar")
 
   render_section_title("Top Journey Paths")
   render_paths_table(data)
