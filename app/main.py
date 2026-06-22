@@ -186,6 +186,7 @@ def _build_pages() -> list:
     return [
         st.Page(_page_path("01_executive_summary.py"), title="Executive Summary", icon="📊"),
         st.Page(_page_path("02_source_analysis.py"), title="Source Analysis", icon="📁"),
+        st.Page(_page_path("11_review_discovery.py"), title="Review Discovery", icon="🔎"),
         st.Page(_page_path("03_discovery_challenges.py"), title="Discovery Challenges", icon="🔍"),
         st.Page(_page_path("04_theme_explorer.py"), title="Theme Explorer", icon="🏷️"),
         st.Page(_page_path("05_segment_explorer.py"), title="Segment Explorer", icon="👥"),

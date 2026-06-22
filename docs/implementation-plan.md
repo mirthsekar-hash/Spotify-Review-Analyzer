@@ -606,6 +606,40 @@ class PipelineResult:
 
 ---
 
+### 2.6 Review Discovery Dashboard (Day 14)
+
+> Browse the **raw review corpus** with keyword search, rating/source filters, and paginated cards. Complements Source Analysis (aggregates) and Theme Explorer (curated evidence).
+
+#### Tasks
+
+| ID | Task | Files / Artifacts | Depends On |
+|----|------|-------------------|------------|
+| 2.6.1 | Extend `reviews_repo.py` | `ReviewSearchParams`, `search_reviews`, `count_matching`, `get_rating_distribution` | 1.2 |
+| 2.6.2 | Create `review_discovery_service.py` | Pagination, KPI aggregates for filtered corpus | 2.6.1 |
+| 2.6.3 | Create `app/components/rating_distribution_chart.py` | Horizontal star-rating bar chart | 2.6.2 |
+| 2.6.4 | Create `app/components/review_card.py` | Styled review cards with metadata footer | 2.6.2 |
+| 2.6.5 | Create `app/pages/11_review_discovery.py` | Filter panel + KPI row + chart + paginated list | 2.6.3–2.6.4 |
+| 2.6.6 | Register nav entry after Source Analysis | `app/main.py` | 2.6.5 |
+
+#### Page — Required Visualizations
+
+| Visualization | Data |
+|---------------|------|
+| KPI row | Avg rating (filtered), matching review count, corpus total |
+| Rating distribution | Horizontal bars 5★→1★ for search + source filters |
+| Filter panel | Keyword search, rating radio, sort, source, reset |
+| Discovered reviews | Paginated cards (40/page): stars, text, date, version, helpful votes, ID |
+
+#### Acceptance Criteria
+
+- [ ] Keyword search uses server-side `ilike` on `reviews.text`
+- [ ] Rating and source filters combine with search
+- [ ] Pagination works for 1000+ reviews without loading full corpus into memory
+- [ ] Empty states for no corpus and no matching filters
+- [ ] Page appears in sidebar after Source Analysis
+
+---
+
 ### 2.5 Discovery Challenges Dashboard — Scaffold (Day 14)
 
 > Full theme data comes in Phase 3. This page ships with **per-review discovery_challenge aggregations** as interim data.
@@ -635,6 +669,7 @@ class PipelineResult:
 ✓ "Fetch Latest Reviews" wired in sidebar with progress + status
 ✓ pipeline_runs table populated on each run
 ✓ Source Analysis dashboard (Page 2)
+✓ Review Discovery dashboard (Page 11 — nav after Source Analysis)
 ✓ Discovery Challenges dashboard — interim version (Page 3)
 ✓ 1000+ total reviews in Supabase
 ✓ Fallback CSVs for all 3 sources
@@ -645,8 +680,9 @@ class PipelineResult:
 1. Click **Fetch Latest Reviews** → show progress for 3 sources
 2. Show pipeline status panel with per-source counts
 3. Open **Source Analysis** → compare Play Store vs App Store vs Reddit sentiment
-4. Open **Discovery Challenges** → show top challenges from per-review analysis
-5. Re-click fetch → demonstrate dedup (new count << total fetched)
+4. Open **Review Discovery** → search "shuffle", filter 1★ reviews, browse paginated cards
+5. Open **Discovery Challenges** → show top challenges from per-review analysis
+6. Re-click fetch → demonstrate dedup (new count << total fetched)
 
 ---
 
@@ -1250,7 +1286,7 @@ Run this checklist before declaring the project complete (architecture §18):
 | Phase | Tasks | Dashboard Pages | Key Files |
 |-------|-------|-----------------|-----------|
 | Phase 1 | 28 | 1 (Executive Summary) | 18 files |
-| Phase 2 | 22 | 2 (Source, Discovery scaffold) | 10 files |
+| Phase 2 | 28 | 3 (Source, Review Discovery, Discovery scaffold) | 14 files |
 | Phase 3 | 35 | 5 (Pages 3–8 upgraded/new) | 20 files |
 | Phase 4 | 24 | 2 (Interview, Research Assistant) | 15 files |
 | **Total** | **~109 tasks** | **10 pages** | **~63 files** |

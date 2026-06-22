@@ -2,13 +2,25 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import Literal
 from uuid import UUID
 
 from supabase import Client
 
 from src.db.client import get_supabase_client
-from src.db.models import NormalizedReview, Review, UpsertReviewsResult
+from src.db.models import NormalizedReview, Review, ReviewSource, UpsertReviewsResult
 from src.db.response_utils import first_row, response_data
+
+ReviewSortOrder = Literal["oldest", "newest", "rating_high", "rating_low"]
+
+
+@dataclass(frozen=True)
+class ReviewSearchParams:
+    query: str | None = None
+    rating: int | None = None
+    source: ReviewSource | None = None
+    sort_by: ReviewSortOrder = "oldest"
 
 
 class ReviewsRepository:
@@ -138,6 +150,57 @@ class ReviewsRepository:
         if not ratings:
             return None
         return round(sum(ratings) / len(ratings), 2)
+
+    def _apply_search_filters(self, query, params: ReviewSearchParams, *, include_rating: bool = True):
+        if params.query:
+            escaped = params.query.replace("%", r"\%").replace("_", r"\_")
+            query = query.ilike("text", f"%{escaped}%")
+        if include_rating and params.rating is not None:
+            query = query.eq("rating", params.rating)
+        if params.source is not None:
+            query = query.eq("source", params.source)
+        return query
+
+    def _apply_sort(self, query, sort_by: ReviewSortOrder):
+        if sort_by == "newest":
+            return query.order("review_date", desc=True).order("created_at", desc=True)
+        if sort_by == "rating_high":
+            return query.order("rating", desc=True).order("review_date", desc=True)
+        if sort_by == "rating_low":
+            return query.order("rating", desc=False).order("review_date", desc=True)
+        return query.order("review_date", desc=False).order("created_at", desc=False)
+
+    def count_matching(self, params: ReviewSearchParams, *, include_rating: bool = True) -> int:
+        query = self._table.select("id", count="exact").limit(1)
+        query = self._apply_search_filters(query, params, include_rating=include_rating)
+        response = query.execute()
+        return response.count or 0
+
+    def get_rating_distribution(self, params: ReviewSearchParams) -> dict[int, int]:
+        counts: dict[int, int] = {}
+        for star in range(5, 0, -1):
+            star_params = ReviewSearchParams(
+                query=params.query,
+                rating=star,
+                source=params.source,
+                sort_by=params.sort_by,
+            )
+            counts[star] = self.count_matching(star_params, include_rating=True)
+        return counts
+
+    def search_reviews(
+        self,
+        params: ReviewSearchParams,
+        *,
+        offset: int = 0,
+        limit: int = 40,
+    ) -> list[Review]:
+        query = self._table.select("*")
+        query = self._apply_search_filters(query, params, include_rating=True)
+        query = self._apply_sort(query, params.sort_by)
+        query = query.range(offset, offset + limit - 1)
+        rows = response_data(query.execute())
+        return [Review.from_db(row) for row in rows]
 
     def count_analyzed_by_source(self) -> dict[str, int]:
         rows = response_data(

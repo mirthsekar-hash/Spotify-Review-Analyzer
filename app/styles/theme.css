@@ -423,3 +423,48 @@ section[data-testid="stMain"] [data-testid="stVerticalBlock"]:has(.sra-chat-pane
 /* Hide Streamlit deploy/menu chrome where possible */
 #MainMenu { visibility: hidden; }
 footer { visibility: hidden; }
+
+/* Review Discovery cards */
+.sra-review-card {
+  background: var(--sra-surface);
+  border: 1px solid var(--sra-border);
+  border-radius: var(--sra-radius-lg);
+  padding: 1rem 1.15rem;
+  margin-bottom: 0.85rem;
+}
+
+.sra-review-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.sra-review-stars {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.sra-review-source {
+  font-size: 0.75rem;
+  color: var(--sra-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sra-review-text {
+  color: var(--sra-on-surface);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 0.75rem 0;
+  white-space: pre-wrap;
+}
+
+.sra-review-meta {
+  font-size: 0.78rem;
+  color: var(--sra-secondary);
+  border-top: 1px solid var(--sra-border);
+  padding-top: 0.55rem;
+}

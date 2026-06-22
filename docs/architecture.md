@@ -126,6 +126,7 @@ spotify-review-engine/
 │   └── pages/
 │       ├── 01_executive_summary.py
 │       ├── 02_source_analysis.py
+│       ├── 11_review_discovery.py
 │       ├── 03_discovery_challenges.py
 │       ├── 04_theme_explorer.py
 │       ├── 05_segment_explorer.py
@@ -187,7 +188,9 @@ spotify-review-engine/
 │   │       └── embeddings_repo.py
 │   └── services/
 │       ├── dashboard_service.py     # KPIs, aggregations for UI
-│       └── journey_service.py       # discovery journey graph builder
+│       ├── review_discovery_service.py  # corpus search, filters, pagination
+│       ├── explorer_service.py      # theme/segment drill-down data
+│       └── journey_service.py       # discovery journey path builder
 ├── prompts/
 │   ├── review_analysis.txt
 │   ├── theme_extraction.txt
@@ -773,12 +776,13 @@ Returned by Gemini and validated via `schemas/research_assistant.py` before rend
 |------|--------------|-------------------|
 | Executive Summary | Aggregates across all tables | KPI cards, Gemini AI exec summary (JSON → markdown), trust score gauge |
 | Source Analysis | `reviews` + `review_analysis` by source | Bar charts, sentiment stacked bars, complaint word cloud |
+| Review Discovery | `reviews` (paginated search) | Keyword search, rating/source filters, rating distribution bars, review cards |
 | Discovery Challenges | `themes` | Ranked table with impact badges |
 | Theme Explorer | `themes` + `theme_reviews` + joins | Drill-down panel, segment pie, related links |
 | Segment Explorer | `segments` + filtered `review_analysis` | Segment cards, frustration lists |
 | Root Cause Analysis | `root_causes` | Evidence timeline, segment heatmap |
 | Unmet Needs | `unmet_needs` | Opportunity matrix, AI solution cards |
-| Discovery Journey | `review_analysis` user_goal chains | Sankey / step diagram |
+| Discovery Journey | `review_analysis` user_goal chains | Horizontal path bar chart, stage table, step detail |
 | Interview Validation | `interview_insights` (future) | Comparison table |
 | Research Assistant | RAG service (Gemini, schema-validated JSON) | Chat UI with citation sidebar |
 
@@ -797,7 +801,9 @@ Reuse Streamlit + Plotly/Altair components:
 - `components/sentiment_chart.py`
 - `components/evidence_list.py`
 - `components/segment_badge.py`
-- `components/journey_sankey.py`
+- `components/rating_distribution_chart.py`
+- `components/review_card.py`
+- `components/journey_flow_chart.py`
 
 ---
 
