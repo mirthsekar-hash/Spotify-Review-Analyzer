@@ -25,11 +25,15 @@ def render_empty_state() -> None:
 def render_segment_cards(data: SegmentsExplorerData) -> None:
     columns = st.columns(2)
     for index, segment in enumerate(data.segments):
+        slug = segment.segment_name.lower().replace(" ", "_")
         with columns[index % 2]:
             with st.container(border=True):
                 st.markdown(f"#### {segment.segment_name}")
                 render_kpi_card("Segment size", segment.size)
-                render_trust_score_gauge(segment.recommendation_trust_score)
+                render_trust_score_gauge(
+                    segment.recommendation_trust_score,
+                    key=f"segment_gauge_overview_{slug}",
+                )
 
 
 def render_segment_detail(data: SegmentsExplorerData) -> None:
@@ -61,7 +65,10 @@ def render_segment_detail(data: SegmentsExplorerData) -> None:
                 st.markdown(f"- {frustration}")
         else:
             st.caption("No frustrations recorded.")
-        render_trust_score_gauge(segment.recommendation_trust_score)
+        render_trust_score_gauge(
+            segment.recommendation_trust_score,
+            key=f"segment_gauge_detail_{selected.replace(' ', '_').lower()}",
+        )
 
 
 def main() -> None:
