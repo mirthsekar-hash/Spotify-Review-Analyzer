@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spotify Review Engine - App Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e5e2e1;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .thumbnail-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .thumbnail-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(29, 185, 84, 0.15);
+        }
+        .glass-panel {
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #2e2e2e;
+        }
+        .accent-glow {
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.2);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#72fe8f",
+                        "on-primary-fixed-variant": "#005320",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-tertiary-container": "#383838",
+                        "on-primary-container": "#004118",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-container": "#b7b5b4",
+                        "secondary-container": "#474746",
+                        "on-secondary": "#303030",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#c8c6c6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-bright": "#393939",
+                        "surface": "#131313",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-fixed-dim": "#53e076",
+                        "outline": "#869585",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#e4e2e2",
+                        "on-surface-variant": "#bccbb9",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "primary-container": "#1db954",
+                        "surface-tint": "#53e076",
+                        "outline-variant": "#3d4a3d",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#002108",
+                        "error-container": "#93000a",
+                        "on-primary": "#003914",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#303030",
+                        "primary": "#53e076",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-background": "#e5e2e1",
+                        "tertiary-container": "#a2a1a1",
+                        "background": "#131313",
+                        "secondary": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#006e2d",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "surface-container-highest": "#353534"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-x": "2rem",
+                        "gutter": "1.5rem",
+                        "panel-padding": "1.5rem",
+                        "stack-gap": "1rem",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "section-header": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-kpi": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 z-50 flex justify-between items-center h-16 px-margin-x ml-[260px] w-[calc(100%-260px)] bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-[24px] font-bold text-on-surface">App Overview</h1>
+<span class="px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-caps text-[10px]">12 MODULES</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-caps cursor-pointer hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span>SEARCH MODULES</span>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">help</span>
+<span class="material-symbols-outlined text-primary cursor-pointer">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-surface border-r border-outline-variant flex flex-col py-panel-padding z-50">
+<div class="px-6 mb-10">
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">SRE</div>
+<div class="text-[11px] font-label-caps text-primary tracking-widest mt-1">DISCOVERY INTELLIGENCE</div>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">dashboard</span>
+<span class="font-body-md text-body-md">Executive Summary</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">analytics</span>
+<span class="font-body-md text-body-md">Source Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">insights</span>
+<span class="font-body-md text-body-md">Theme Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">hub</span>
+<span class="font-body-md text-body-md">Competitor Intel</span>
+</a>
+<div class="pt-4 pb-2 px-4 text-[10px] font-bold text-outline uppercase tracking-widest">System</div>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-l-4 border-primary bg-secondary-container/10 rounded-r-lg" href="#">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+<span class="font-body-md text-body-md">App Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-variant/50 transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span>New Analysis</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] mt-16 p-margin-x min-h-screen">
+<div class="max-w-container-max-width mx-auto">
+<header class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Discovery Blueprint</h2>
+<p class="text-on-surface-variant mt-2 max-w-2xl">High-fidelity view of the Spotify Review Engine ecosystem. Each module is designed to transform raw qualitative feedback into actionable product strategies.</p>
+</header>
+<!-- 3x4 Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Row 1 -->
+<!-- Executive Summary -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3 relative">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="flex justify-between items-center mb-1">
+<div class="h-2 w-16 bg-outline-variant rounded"></div>
+<div class="h-2 w-8 bg-primary/20 rounded"></div>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="h-10 bg-surface-container rounded border border-outline-variant/30 flex flex-col p-1">
+<div class="h-1 w-6 bg-outline-variant mb-1"></div>
+<div class="h-3 w-10 bg-primary/60 rounded"></div>
+</div>
+<div class="h-10 bg-surface-container rounded border border-outline-variant/30 flex flex-col p-1">
+<div class="h-1 w-6 bg-outline-variant mb-1"></div>
+<div class="h-3 w-10 bg-primary/60 rounded"></div>
+</div>
+<div class="h-10 bg-surface-container rounded border border-outline-variant/30 flex flex-col p-1">
+<div class="h-1 w-6 bg-outline-variant mb-1"></div>
+<div class="h-3 w-10 bg-primary/60 rounded"></div>
+</div>
+</div>
+<div class="flex-1 bg-surface-container/50 rounded p-2 flex gap-2">
+<div class="w-1/2 flex flex-col gap-1">
+<div class="h-1.5 w-full bg-outline-variant/40 rounded"></div>
+<div class="h-1.5 w-[90%] bg-outline-variant/40 rounded"></div>
+<div class="h-1.5 w-[95%] bg-outline-variant/40 rounded"></div>
+</div>
+<div class="w-1/2 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full border-[4px] border-primary/20 border-t-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Executive Summary</span>
+</div>
+<!-- Source Analysis -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="h-3 w-24 bg-outline-variant mb-1"></div>
+<div class="flex-1 grid grid-cols-2 gap-2">
+<div class="bg-surface-container rounded p-1 flex flex-col gap-1">
+<div class="h-1 w-8 bg-outline-variant"></div>
+<div class="flex-1 flex items-end gap-1 px-1">
+<div class="w-2 bg-primary/40 h-[20%]"></div>
+<div class="w-2 bg-primary/40 h-[50%]"></div>
+<div class="w-2 bg-primary h-[80%]"></div>
+<div class="w-2 bg-primary/40 h-[40%]"></div>
+</div>
+</div>
+<div class="bg-surface-container rounded p-1 flex flex-col gap-1">
+<div class="h-1 w-8 bg-outline-variant"></div>
+<div class="flex-1 flex flex-col justify-center items-center gap-1">
+<div class="w-8 h-8 rounded-full border-2 border-primary/40"></div>
+<div class="h-1 w-6 bg-outline-variant/50"></div>
+</div>
+</div>
+</div>
+<div class="h-10 bg-surface-container rounded border border-outline-variant/30 flex items-center px-2 gap-2">
+<div class="w-4 h-4 rounded bg-primary/20"></div>
+<div class="flex-1 h-1.5 bg-outline-variant/30 rounded"></div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Source Analysis</span>
+</div>
+<!-- Discovery Challenges -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3 relative">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="flex justify-between items-center h-4">
+<div class="w-20 h-2 bg-error/30 rounded"></div>
+</div>
+<div class="flex-1 flex flex-col gap-2 overflow-hidden">
+<div class="flex gap-2 items-center p-2 bg-error-container/10 border border-error/20 rounded">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="flex-1 h-1.5 bg-on-surface-variant/30 rounded"></div>
+</div>
+<div class="flex gap-2 items-center p-2 bg-surface-container rounded">
+<div class="w-3 h-3 rounded-full bg-primary/40"></div>
+<div class="flex-1 h-1.5 bg-on-surface-variant/30 rounded"></div>
+</div>
+<div class="flex gap-2 items-center p-2 bg-surface-container rounded">
+<div class="w-3 h-3 rounded-full bg-primary/40"></div>
+<div class="flex-1 h-1.5 bg-on-surface-variant/30 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Discovery Challenges</span>
+</div>
+<!-- Theme Explorer -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-1">
+<div class="flex gap-1 mb-2">
+<div class="px-2 py-0.5 rounded bg-primary/20 text-primary text-[6px]">UX DESIGN</div>
+<div class="px-2 py-0.5 rounded bg-secondary-container/50 text-on-surface-variant text-[6px]">PERFORMANCE</div>
+</div>
+<div class="space-y-1">
+<div class="h-6 bg-surface-container rounded flex items-center px-2 gap-3 border-l-2 border-primary">
+<div class="w-2 h-2 rounded bg-primary"></div>
+<div class="flex-1 h-1 bg-outline-variant/40 rounded"></div>
+<div class="w-6 h-2 bg-primary/20 rounded"></div>
+</div>
+<div class="h-6 bg-surface-container rounded flex items-center px-2 gap-3 border-l-2 border-outline-variant">
+<div class="w-2 h-2 rounded bg-outline-variant"></div>
+<div class="flex-1 h-1 bg-outline-variant/40 rounded"></div>
+<div class="w-6 h-2 bg-outline-variant/20 rounded"></div>
+</div>
+<div class="h-6 bg-surface-container rounded flex items-center px-2 gap-3 border-l-2 border-outline-variant">
+<div class="w-2 h-2 rounded bg-outline-variant"></div>
+<div class="flex-1 h-1 bg-outline-variant/40 rounded"></div>
+<div class="w-6 h-2 bg-outline-variant/20 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Theme Explorer</span>
+</div>
+<!-- Row 2 -->
+<!-- Segment Explorer -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="flex items-center gap-2 h-4">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-16 h-2 bg-outline-variant rounded"></div>
+</div>
+<div class="flex-1 flex gap-2">
+<div class="w-1/3 bg-surface-container rounded p-1 flex flex-col gap-1">
+<div class="h-full w-full flex items-center justify-center">
+<div class="w-8 h-8 rounded-full border-4 border-primary/10 border-t-primary"></div>
+</div>
+</div>
+<div class="w-2/3 bg-surface-container rounded p-2 space-y-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-1.5 w-[80%] bg-outline-variant/30 rounded"></div>
+<div class="h-1.5 w-[90%] bg-outline-variant/30 rounded"></div>
+<div class="h-3 w-10 bg-primary/20 rounded mt-2"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Segment Explorer</span>
+</div>
+<!-- Root Cause Analysis -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col items-center justify-center gap-3">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-outline-variant/20 scale-100"></div>
+<div class="absolute inset-2 rounded-full border border-primary/20 scale-100"></div>
+<div class="absolute inset-4 rounded-full border border-primary/40 scale-100"></div>
+<div class="w-4 h-4 rounded bg-primary accent-glow"></div>
+<div class="absolute top-2 left-4 w-2 h-2 rounded bg-primary/60"></div>
+<div class="absolute bottom-4 right-2 w-2 h-2 rounded bg-primary/60"></div>
+</div>
+<div class="h-2 w-20 bg-outline-variant/40 rounded"></div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Root Cause Analysis</span>
+</div>
+<!-- Unmet Needs -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3 relative">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="h-3 w-20 bg-primary/30 rounded mb-1"></div>
+<div class="grid grid-cols-2 gap-2 flex-1">
+<div class="bg-surface-container rounded p-2 flex flex-col justify-center gap-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-4 w-4 rounded-full bg-primary/40"></div>
+</div>
+<div class="bg-surface-container rounded p-2 flex flex-col justify-center gap-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-4 w-4 rounded-full bg-primary/40"></div>
+</div>
+<div class="bg-surface-container rounded p-2 flex flex-col justify-center gap-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-4 w-4 rounded-full bg-primary/40"></div>
+</div>
+<div class="bg-surface-container rounded p-2 flex flex-col justify-center gap-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-4 w-4 rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Unmet Needs</span>
+</div>
+<!-- Discovery Journey -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-1 overflow-hidden">
+<div class="flex items-center gap-2 h-4 mb-2">
+<div class="w-20 h-2 bg-outline-variant rounded"></div>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-6 h-6 rounded bg-primary/20 flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-primary"></div></div>
+<div class="flex-1 h-0.5 bg-primary/30"></div>
+<div class="w-6 h-6 rounded bg-primary flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-primary"></div></div>
+<div class="flex-1 h-0.5 bg-outline-variant/30"></div>
+<div class="w-6 h-6 rounded bg-surface-container flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-outline-variant"></div></div>
+</div>
+<div class="mt-4 space-y-2">
+<div class="h-10 bg-surface-container rounded p-2">
+<div class="h-1.5 w-full bg-outline-variant/30 rounded mb-1"></div>
+<div class="h-1.5 w-[60%] bg-outline-variant/30 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Discovery Journey</span>
+</div>
+<!-- Row 3 -->
+<!-- Interview Validation -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-outline-variant/20"></div>
+<div class="h-2 w-16 bg-outline-variant/40 rounded"></div>
+</div>
+<div class="flex-1 bg-surface-container rounded p-2 flex flex-col gap-2">
+<div class="h-2 w-full bg-primary/20 rounded"></div>
+<div class="h-2 w-[90%] bg-outline-variant/20 rounded"></div>
+<div class="h-2 w-[85%] bg-outline-variant/20 rounded"></div>
+<div class="mt-auto flex justify-end gap-2">
+<div class="w-8 h-4 bg-primary/20 rounded"></div>
+<div class="w-8 h-4 bg-primary rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Interview Validation</span>
+</div>
+<!-- Research Assistant -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3 relative">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+<div class="w-full h-full glass-panel rounded-lg p-2 flex flex-col gap-2 border-primary/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1">auto_awesome</span>
+<div class="h-2 w-24 bg-primary/40 rounded"></div>
+</div>
+<div class="flex-1 flex flex-col gap-2 mt-1">
+<div class="self-start p-1.5 bg-surface-container rounded-lg rounded-tl-none border border-outline-variant/20 max-w-[80%]">
+<div class="h-1 w-12 bg-outline-variant/40 mb-1"></div>
+<div class="h-1.5 w-full bg-outline-variant/20"></div>
+</div>
+<div class="self-end p-1.5 bg-primary/10 rounded-lg rounded-tr-none border border-primary/20 max-w-[80%]">
+<div class="h-1.5 w-full bg-primary/40"></div>
+</div>
+</div>
+<div class="h-5 w-full bg-surface-container rounded-full border border-outline-variant/30 flex items-center px-2">
+<div class="h-1 w-full bg-outline-variant/20 rounded"></div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Research Assistant</span>
+</div>
+<!-- Sidebar Navigation Close-up -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3">
+<div class="w-full h-full flex bg-surface-container rounded-lg border border-outline-variant/30 overflow-hidden">
+<div class="w-12 h-full border-r border-outline-variant flex flex-col py-2 items-center gap-3">
+<div class="w-6 h-6 rounded bg-primary/20 mb-2"></div>
+<div class="w-8 h-1 bg-primary border-r-2 border-primary"></div>
+<div class="w-6 h-1 bg-outline-variant/40"></div>
+<div class="w-6 h-1 bg-outline-variant/40"></div>
+<div class="w-6 h-1 bg-outline-variant/40"></div>
+</div>
+<div class="flex-1 p-2 flex flex-col gap-2">
+<div class="h-2 w-12 bg-outline-variant/40 rounded"></div>
+<div class="h-4 w-full bg-surface/50 rounded"></div>
+<div class="h-4 w-full bg-surface/50 rounded"></div>
+</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Navigation Shell</span>
+</div>
+<!-- Mobile-not-required note card -->
+<div class="thumbnail-card flex flex-col group cursor-pointer">
+<div class="aspect-[16/10] w-full bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant p-3 flex items-center justify-center relative">
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<span class="material-symbols-outlined text-[80px]">laptop_mac</span>
+</div>
+<div class="glass-panel p-4 rounded-xl text-center border-dashed border-primary/40 relative z-10">
+<span class="material-symbols-outlined text-primary mb-2">desktop_access_disabled</span>
+<div class="font-label-caps text-[10px] text-on-surface tracking-widest">DESKTOP OPTIMIZED</div>
+<div class="text-[8px] text-on-surface-variant mt-1">MOBILE VIEW SUPPRESSED<br/>FOR DATA DENSITY</div>
+</div>
+</div>
+<span class="mt-3 font-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Platform Strategy</span>
+</div>
+</div>
+<!-- Footer Metrics -->
+<footer class="mt-16 pt-8 border-t border-outline-variant flex justify-between items-center text-on-surface-variant">
+<div class="flex gap-12">
+<div>
+<div class="font-label-caps text-[10px] text-outline mb-1">TOTAL DATA POINTS</div>
+<div class="font-display-kpi text-[24px] text-primary">1.2M+</div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-outline mb-1">AI CONFIDENCE</div>
+<div class="font-display-kpi text-[24px] text-primary">98.4%</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-outline-variant rounded-lg font-label-caps hover:bg-surface-variant transition-colors">EXPORT BLUEPRINT</button>
+<button class="px-6 py-2 bg-primary text-on-primary font-label-caps rounded-lg hover:opacity-90 transition-opacity">LAUNCH ANALYZER</button>
+</div>
+</footer>
+</div>
+</main>
+<script>
+        // Micro-interactions for hover effects
+        document.querySelectorAll('.thumbnail-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for adding subtle canvas or SVG animation triggers here
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchTrigger = document.querySelector('.cursor-pointer.hover\\:text-primary');
+        if (searchTrigger) {
+            searchTrigger.addEventListener('click', () => {
+                console.log('Search focused');
+                // Placeholder for search overlay logic
+            });
+        }
+    </script>
+</body></html>

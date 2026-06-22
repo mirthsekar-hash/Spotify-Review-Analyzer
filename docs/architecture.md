@@ -146,7 +146,8 @@ spotify-review-engine/
 │   ├── llm/
 │   │   ├── base.py                  # LLMProvider protocol
 │   │   ├── factory.py               # create_llm_provider() from LLM_PROVIDER env
-│   │   ├── gemini_provider.py       # Google Gemini (default)
+│   │   ├── groq_provider.py         # Groq (default for per-review analysis)
+│   │   ├── gemini_provider.py       # Google Gemini
 │   │   ├── openai_provider.py       # optional swap via LLM_PROVIDER=openai
 │   │   ├── embedding_factory.py     # create_embedding_provider()
 │   │   ├── gemini_embeddings.py
@@ -525,7 +526,7 @@ The platform uses **Google Gemini 2.5 Flash** as the default LLM for all generat
 | Research Assistant (RAG) | **Gemini 2.5 Flash** | `GEMINI_MODEL` |
 | Embeddings (default) | **text-embedding-004** | `GEMINI_EMBEDDING_MODEL` |
 
-Default: `GEMINI_MODEL=gemini-2.5-flash`
+Default: `GROQ_MODEL=llama-3.3-70b-versatile` (analysis) · `GEMINI_EMBEDDING_MODEL=gemini-embedding-001` (embeddings)
 
 #### Provider Swap Architecture
 
@@ -533,8 +534,10 @@ Default: `GEMINI_MODEL=gemini-2.5-flash`
 flowchart TB
     ENG[AI Engine] --> SC[structured_completion]
     SC --> FACTORY[llm/factory.py]
+    FACTORY -->|LLM_PROVIDER=groq| GRQ[groq_provider.py]
     FACTORY -->|LLM_PROVIDER=gemini| GEM[gemini_provider.py]
     FACTORY -->|LLM_PROVIDER=openai| OAI[openai_provider.py]
+    GRQ --> API0[Groq API]
     GEM --> API1[Google Gemini API]
     OAI --> API2[OpenAI API]
 
@@ -547,13 +550,15 @@ flowchart TB
 
 | Env Var | Values | Default | Purpose |
 |---------|--------|---------|---------|
-| `LLM_PROVIDER` | `gemini` \| `openai` | `gemini` | Generative LLM backend |
-| `GEMINI_API_KEY` | string | — | Required when `LLM_PROVIDER=gemini` |
-| `GEMINI_MODEL` | string | `gemini-2.5-flash` | Model for all generative tasks |
+| `LLM_PROVIDER` | `groq` \| `gemini` \| `openai` | `groq` | Generative LLM backend |
+| `GROQ_API_KEY` | string | — | Required when `LLM_PROVIDER=groq` |
+| `GROQ_MODEL` | string | `llama-3.3-70b-versatile` | Model when using Groq provider |
+| `GEMINI_API_KEY` | string | — | Required when `LLM_PROVIDER=gemini` or `EMBEDDING_PROVIDER=gemini` |
+| `GEMINI_MODEL` | string | `gemini-2.5-flash` | Model for generative tasks when using Gemini |
 | `OPENAI_API_KEY` | string | — | Required when `LLM_PROVIDER=openai` |
 | `OPENAI_MODEL` | string | `gpt-4o` | Model when using OpenAI provider |
 | `EMBEDDING_PROVIDER` | `gemini` \| `openai` | `gemini` | Embedding backend |
-| `GEMINI_EMBEDDING_MODEL` | string | `text-embedding-004` | Gemini embeddings |
+| `GEMINI_EMBEDDING_MODEL` | string | `gemini-embedding-001` | Gemini embeddings |
 | `OPENAI_EMBEDDING_MODEL` | string | `text-embedding-3-small` | OpenAI embeddings |
 | `EMBEDDING_DIMENSIONS` | int | `768` | pgvector column size (768 Gemini / 1536 OpenAI) |
 
@@ -650,7 +655,7 @@ flowchart LR
 
 ### 8.2 Stage 1 — Per-Review Analysis
 
-- **Model**: `gemini-2.5-flash` via `LLM_PROVIDER=gemini` (default)
+- **Model**: `llama-3.3-70b-versatile` via `LLM_PROVIDER=groq` (default), swappable to Gemini or OpenAI
 - **Input**: single review text + source + rating
 - **Output**: validated JSON → `review_analysis` (via `schemas/review_analysis.py`)
 - **Batching**: process in chunks of 10–20 with rate-limit backoff
@@ -829,8 +834,12 @@ class PipelineOrchestrator:
 SUPABASE_URL=
 SUPABASE_SERVICE_KEY=
 
-# LLM provider (default: gemini)
-LLM_PROVIDER=gemini
+# LLM provider (default: groq for analysis)
+LLM_PROVIDER=groq
+GROQ_API_KEY=
+GROQ_MODEL=llama-3.3-70b-versatile
+
+# Gemini (embeddings default; or set LLM_PROVIDER=gemini)
 GEMINI_API_KEY=
 GEMINI_MODEL=gemini-2.5-flash
 
@@ -838,9 +847,9 @@ GEMINI_MODEL=gemini-2.5-flash
 # OPENAI_API_KEY=
 # OPENAI_MODEL=gpt-4o
 
-# Embeddings (default: gemini)
+# Embeddings (default: gemini — recommended with LLM_PROVIDER=groq)
 EMBEDDING_PROVIDER=gemini
-GEMINI_EMBEDDING_MODEL=text-embedding-004
+GEMINI_EMBEDDING_MODEL=gemini-embedding-001
 EMBEDDING_DIMENSIONS=768
 
 # Optional — only when EMBEDDING_PROVIDER=openai

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Segment Explorer | Discovery Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#bccbb9",
+                        "surface-container-high": "#2a2a2a",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#a2a1a1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-secondary": "#303030",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006e2d",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "secondary-container": "#474746",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "primary-container": "#1db954",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed-dim": "#53e076",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#3d4a3d",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-tertiary": "#303030",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#b7b5b4",
+                        "tertiary": "#c8c6c6",
+                        "on-primary": "#003914",
+                        "primary": "#53e076",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-primary-container": "#004118",
+                        "inverse-on-surface": "#313030",
+                        "surface": "#131313",
+                        "on-primary-fixed": "#002108",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353534",
+                        "on-primary-fixed-variant": "#005320",
+                        "background": "#131313",
+                        "tertiary-fixed": "#e4e2e2",
+                        "surface-tint": "#53e076",
+                        "on-tertiary-container": "#383838",
+                        "outline": "#869585",
+                        "secondary": "#c8c6c5",
+                        "primary-fixed": "#72fe8f",
+                        "secondary-fixed": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-x": "2rem",
+                        "panel-padding": "1.5rem",
+                        "gutter": "1.5rem",
+                        "stack-gap": "1rem",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "section-header": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #53e076; }
+        .active-glow {
+            box-shadow: -4px 0px 12px -2px rgba(29, 185, 84, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-background border-b border-surface-variant flex justify-between items-center px-8 h-16">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female product manager in a high-tech corporate office setting, lit with soft neon green and cool blue tones. She has a confident expression and is wearing a dark charcoal blazer. The background shows blurred data screens and modern architectural lines, evoking a sense of discovery intelligence and professional authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyxmQElSOpP3twIEV2j6QAWxe1celpSH7rkpW-fLF3T2dlP4_gpv-zPU4fDMUrUvpQCz1jDGWvtoZtK7kjAaNHJ7_eF3RuY40rzs4DE9Wo0xEraikE5kZA6DJgGGxfGU4SYORkfZp6KbRLCd1ZI3zktDqdE_izoxeCw20SMAyj-xNU-ZhtXiE934FzeXSP3InrFmjyZO7Sf0DsnSCF6EPt2X3T4ztyqAuomgXWo7ULFrqyivgLfZ5C64JEqHyWW1J4l9CXQ5L_Fg"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Discovery Intelligence</h1>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-lg transition-colors">settings</button>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- Sidebar Desktop -->
+<aside class="hidden md:flex flex-col w-[260px] fixed h-[calc(100vh-64px)] border-r border-surface-variant bg-surface-container-lowest py-6">
+<nav class="flex flex-col gap-2 px-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-secondary-container rounded-xl transition-all border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-caps text-label-caps uppercase">Segment Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-label-caps text-label-caps">Challenges</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps">Assistant</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[260px] px-8 py-8 mb-24 md:mb-8">
+<!-- Header Section -->
+<div class="mb-10 max-w-[1440px] mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Segment Explorer</h2>
+<p class="font-body-md text-on-surface-variant mt-1">Listening goals, behaviors, and frustrations by segment</p>
+</div>
+<!-- Bento Layout Container -->
+<div class="grid grid-cols-12 gap-gutter max-w-[1440px] mx-auto">
+<!-- Left Column: Segment Cards (Scrollable List) -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-4 max-h-[calc(100vh-280px)] overflow-y-auto pr-2 custom-scrollbar">
+<!-- Card 1 -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-panel-padding transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-section-header text-section-header text-on-surface">Casual Listener</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded uppercase">Size: 15%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Goals</h4>
+<ul class="text-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2">• Background music</li>
+<li class="flex items-center gap-2">• Low effort</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Trust Score</h4>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-panel-padding transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-section-header text-section-header text-on-surface">Playlist-Dependent</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded uppercase">Size: 12%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Goals</h4>
+<ul class="text-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2">• Curated flow</li>
+<li class="flex items-center gap-2">• No skips</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Trust Score</h4>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 72%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: ACTIVE SELECTION -->
+<div class="bg-surface-container-high border-l-4 border-primary rounded-xl p-panel-padding transition-all active-glow relative">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-section-header text-section-header text-primary">Music Explorer</h3>
+<span class="font-label-caps text-label-caps text-on-primary bg-primary-container px-2 py-0.5 rounded uppercase">Size: 20%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="space-y-4">
+<div>
+<h4 class="font-label-caps text-label-caps text-primary-fixed-dim mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">target</span> Listening Goals
+                                    </h4>
+<ul class="text-body-sm text-on-surface space-y-2">
+<li class="flex items-start gap-2"><span class="text-primary">•</span> Continuous sonic evolution</li>
+<li class="flex items-start gap-2"><span class="text-primary">•</span> Finding "undiscovered" gems</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary-fixed-dim mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">search</span> Discovery Behavior
+                                    </h4>
+<ul class="text-body-sm text-on-surface space-y-2">
+<li class="flex items-start gap-2"><span class="text-primary">•</span> Deep dives into related artists</li>
+<li class="flex items-start gap-2"><span class="text-primary">•</span> Aggressive playlist experimentation</li>
+</ul>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<h4 class="font-label-caps text-label-caps text-error mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span> Top Frustrations
+                                    </h4>
+<ul class="text-body-sm text-error space-y-2">
+<li class="flex items-start gap-2"><span>•</span> Too much repetitive content</li>
+<li class="flex items-start gap-2"><span>•</span> Recommendations feel stagnant</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-tertiary-container mb-2 uppercase flex items-center justify-between">
+                                        Trust Score <span>92%</span>
+</h4>
+<div class="w-full bg-surface-variant rounded-full h-3">
+<div class="bg-primary h-3 rounded-full shadow-[0_0_8px_rgba(83,224,118,0.5)]" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-panel-padding transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-section-header text-section-header text-on-surface">Genre Loyalist</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded uppercase">Size: 8%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Goals</h4>
+<ul class="text-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2">• Mastery of niche</li>
+<li class="flex items-center gap-2">• Community validation</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Trust Score</h4>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-panel-padding transition-all hover:bg-surface-container-high cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-section-header text-section-header text-on-surface">Power User</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded uppercase">Size: 6%</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Goals</h4>
+<ul class="text-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-2">• API/Tool efficiency</li>
+<li class="flex items-center gap-2">• Curatorial dominance</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-[10px] text-tertiary-container mb-2 uppercase">Trust Score</h4>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-2">
+<div class="bg-primary h-2 rounded-full" style="width: 98%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Evidence List (Expanded Section) -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-gutter">
+<section class="bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden flex flex-col h-full">
+<div class="p-panel-padding border-b border-surface-variant bg-surface-container">
+<div class="flex items-center justify-between">
+<h3 class="font-section-header text-section-header text-on-surface flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                                    Supporting Evidence: Music Explorer
+                                </h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-caps uppercase border border-outline-variant">328 Sources</span>
+</div>
+</div>
+</div>
+<div class="p-panel-padding flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+<!-- Quote 1 -->
+<div class="p-6 bg-surface-container rounded-xl border border-outline-variant relative group">
+<span class="material-symbols-outlined absolute top-4 right-4 text-surface-variant text-[40px] opacity-20">format_quote</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">Verified Listener #882</p>
+<div class="flex items-center gap-2">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Negative Sentiment</span>
+<span class="text-on-surface-variant text-[10px]">2 days ago</span>
+</div>
+</div>
+</div>
+<p class="font-body-md text-on-surface italic leading-relaxed">
+                                    "I spend 2 hours a day looking for new music and Discover Weekly just gives me what I listened to 2 years ago. It’s like the algorithm is stuck in a loop and refuses to acknowledge I’ve moved on from 2021 synth-pop."
+                                </p>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 bg-[#2E2E2E] text-on-surface px-2 py-1 rounded text-[10px] border border-outline-variant">
+<img alt="Reddit" class="w-3 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdDWsaNM1qSXfRgnE8p2Y2kuW3gLjRD3Z0wKQgLxzJvzj7qK5yGEmF3RJ_reBrhiIiqjS_pp86SDDhM4rHFuCGN5S_2qrUJaUoUz5dpVbqXQ851UD-HvmLG5FS94spvo8qU5iGSpyyi7At1VZZ6dGkmpcFG3KYXPROGob3R9VqqtT7AzrAFsASEmmTNigvla74JjjJTuGDENJNawSTMyhwZa1OI9y1caxQTSiIdnoZMt1TCoLbRvpHmMpakzah6nmacjCOVCAMeg"/> Reddit /r/Music
+                                        </span>
+</div>
+<button class="text-primary text-label-caps hover:underline">View Thread</button>
+</div>
+</div>
+<!-- Quote 2 -->
+<div class="p-6 bg-surface-container rounded-xl border border-outline-variant relative group">
+<span class="material-symbols-outlined absolute top-4 right-4 text-surface-variant text-[40px] opacity-20">format_quote</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">App Store Reviewer</p>
+<div class="flex items-center gap-2">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Negative Sentiment</span>
+<span class="text-on-surface-variant text-[10px]">1 week ago</span>
+</div>
+</div>
+</div>
+<p class="font-body-md text-on-surface italic leading-relaxed">
+                                    "The app used to be great for finding new artists. Now every 'Radio' station plays the same 15 songs. I feel like I'm paying for a premium service that has a 128MB memory limit."
+                                </p>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 bg-[#2E2E2E] text-on-surface px-2 py-1 rounded text-[10px] border border-outline-variant">
+<img alt="Play Store" class="w-3 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_I5JeTsarekCbXGneCTHXYiThLMRRHsO6CRlgruOW9VTKnUquw_-DAiZZ6b9Iuu3d3xydYqtHQIVmVoL_V_TWHZtXswkpRaYPukI9BP_Pd9tWR4vFB98zoWgA5F0POvKYubwI58gUHQv459Umu2aDMQTqyu1FOH4TA9dejdE-_o8fJkJ-nGknoypcmPGguuFz_djuBRp0ywaOl-t2QLTLSW__BlrZ5PRSxPoxTNpuWim4Xan4GaxZU-zQc526YK7hTUigYeJWsg"/> Play Store
+                                        </span>
+</div>
+<button class="text-primary text-label-caps hover:underline">View Review</button>
+</div>
+</div>
+<!-- Quote 3 -->
+<div class="p-6 bg-surface-container rounded-xl border border-outline-variant relative group">
+<span class="material-symbols-outlined absolute top-4 right-4 text-surface-variant text-[40px] opacity-20">format_quote</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">MusicBlog Curator</p>
+<div class="flex items-center gap-2">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Negative Sentiment</span>
+<span class="text-on-surface-variant text-[10px]">Mar 14, 2024</span>
+</div>
+</div>
+</div>
+<p class="font-body-md text-on-surface italic leading-relaxed">
+                                    "Algorithm burnout is real. For power-explorers, the platform has become too safe. It prioritizes retention over curiosity, leading to a stale user experience for the very people who drive trend discovery."
+                                </p>
+<div class="mt-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 bg-[#2E2E2E] text-on-surface px-2 py-1 rounded text-[10px] border border-outline-variant">
+<img alt="Social" class="w-3 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxTMKAN9VAiGxUIRq78RLgPAhrrpVSxB2PnNMpgR2uCCgj-itfpi_xGTnW3g5B10-DIT9vufFoin-8buRfEUuz5Dj_alg7zEyU4S0cAAP-Gh9QIspCDvHXx_v9Y4cWs_cKWm5Frjf7bFQBckiuT67-48BtQyn5BoNHsh5pmkUjEh5LegG_D4THzvu9s72zHeOJrZnQEgI1kfVI_WWQExi2DLLlJ_-OaRhyECWAy9G93mXODe15V_FmDw8W3dT8vq0iqMur8SmicA"/> Social Media
+                                        </span>
+</div>
+<button class="text-primary text-label-caps hover:underline">View Source</button>
+</div>
+</div>
+</div>
+<div class="p-6 mt-auto bg-surface-container-highest flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<p class="text-body-sm text-on-surface">AI Summary: Users report a "Safe Recommendation Trap" affecting the Music Explorer segment.</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps uppercase text-[12px] hover:opacity-90 transition-opacity">Generate Brief</button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-surface-variant flex justify-around items-center px-4 py-2 shadow-sm rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-[10px]">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary bg-secondary-container rounded-xl p-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-caps text-[10px]">Segments</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-label-caps text-[10px]">Tasks</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-[10px]">Analytics</span>
+</button>
+</nav>
+<!-- Floating Action Button (Contextual) -->
+<button class="fixed bottom-24 right-8 md:bottom-12 md:right-12 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'wght' 600;">add</span>
+</button>
+<script>
+        // Simple interaction script to mimic segment selection
+        document.querySelectorAll('.cursor-pointer').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active classes from others
+                document.querySelectorAll('.active-glow').forEach(el => {
+                    el.classList.remove('bg-surface-container-high', 'border-l-4', 'border-primary', 'active-glow');
+                    el.classList.add('bg-surface-container', 'border', 'border-outline-variant');
+                });
+                // Add active classes to this (simplified for demo)
+                this.classList.remove('bg-surface-container', 'border', 'border-outline-variant');
+                this.classList.add('bg-surface-container-high', 'border-l-4', 'border-primary', 'active-glow');
+            });
+        });
+    </script>
+</body></html>

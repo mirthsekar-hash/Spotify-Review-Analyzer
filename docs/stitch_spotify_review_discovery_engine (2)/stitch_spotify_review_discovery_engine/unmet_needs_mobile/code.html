@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unmet Needs | Discovery Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#869585",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "on-secondary": "#303030",
+                    "on-secondary-container": "#b7b5b4",
+                    "tertiary-fixed": "#e4e2e2",
+                    "on-surface-variant": "#bccbb9",
+                    "on-background": "#e5e2e1",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#72fe8f",
+                    "on-primary": "#003914",
+                    "surface-tint": "#53e076",
+                    "secondary-container": "#474746",
+                    "surface-container-lowest": "#0e0e0e",
+                    "inverse-on-surface": "#313030",
+                    "surface-bright": "#393939",
+                    "primary": "#53e076",
+                    "tertiary": "#c8c6c6",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "primary-container": "#1db954",
+                    "on-primary-fixed": "#002108",
+                    "surface-container": "#201f1f",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-fixed-dim": "#53e076",
+                    "surface-variant": "#353534",
+                    "secondary-fixed": "#e5e2e1",
+                    "background": "#131313",
+                    "surface-variant": "#353534",
+                    "on-tertiary-container": "#383838",
+                    "inverse-primary": "#006e2d",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "tertiary-container": "#a2a1a1",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed-variant": "#474746",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface": "#131313",
+                    "on-secondary-fixed": "#1b1b1c",
+                    "on-tertiary": "#303030",
+                    "on-primary-fixed-variant": "#005320",
+                    "inverse-surface": "#e5e2e1",
+                    "on-primary-container": "#004118",
+                    "on-error": "#690005",
+                    "on-surface": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "secondary": "#c8c6c5",
+                    "outline-variant": "#3d4a3d",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "panel-padding": "1.5rem",
+                    "container-max-width": "1440px",
+                    "stack-gap": "1rem",
+                    "gutter": "1.5rem",
+                    "margin-x": "2rem"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "section-header": ["Inter"],
+                    "display-kpi": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2e2e2e;
+        }
+        .opportunity-bar {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-gutter h-16 bg-background dark:bg-background border-b border-outline-variant dark:border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">Discovery Intelligence</h1>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</header>
+<main class="mt-20 px-4 max-w-md mx-auto">
+<!-- Header Section -->
+<section class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-1">Unmet Needs</h2>
+<p class="font-body-md text-on-surface-variant">Emerging needs and AI solution opportunities</p>
+</section>
+<!-- Featured Opportunity -->
+<section class="mb-6">
+<div class="glass-card rounded-xl p-panel-padding relative overflow-hidden">
+<!-- Decorative AI Glow -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[50px] -mr-16 -mt-16 rounded-full"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-3 py-1 rounded-full uppercase">Top Bet</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]">reviews</span>
+<span class="font-label-caps text-label-caps">9 Reviews</span>
+</div>
+</div>
+<h3 class="font-section-header text-section-header text-on-surface mb-3 leading-tight">
+                    Fresh weekly discovery mixes with explicit novelty control
+                </h3>
+<div class="mb-6">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Opportunity Score</span>
+<span class="font-display-kpi text-[24px] text-primary">0.85</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="opportunity-bar h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase opacity-60">Frequency</span>
+<span class="font-section-header text-on-surface">11</span>
+</div>
+</div>
+<div class="space-y-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Suggested AI Solutions</span>
+<div class="flex flex-wrap gap-2">
+<div class="bg-surface-container-high px-3 py-1.5 rounded-lg border border-outline-variant">
+<p class="font-body-sm text-on-surface">Novelty-weighted embeddings</p>
+</div>
+<div class="bg-surface-container-high px-3 py-1.5 rounded-lg border border-outline-variant">
+<p class="font-body-sm text-on-surface">User-tunable exploration slider</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Ranked List Header -->
+<div class="flex items-center justify-between mb-4 px-1">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Potential Targets</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">sort</span>
+</div>
+<!-- Opportunity Cards List -->
+<div class="space-y-4">
+<!-- Card 1 -->
+<div class="surface-container rounded-lg border border-outline-variant p-4 transition-colors hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-body-md font-semibold text-on-surface flex-1 pr-4 leading-snug">Cross-platform listening context integration</h3>
+<div class="text-right">
+<div class="text-primary font-bold text-sm">0.72</div>
+<div class="text-[10px] uppercase text-on-surface-variant font-semibold">Score</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary/60" style="width: 72%"></div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">Unified embedding space</span>
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">External data ingestion</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="surface-container rounded-lg border border-outline-variant p-4 transition-colors hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-body-md font-semibold text-on-surface flex-1 pr-4 leading-snug">Mood-based collaborative filtering</h3>
+<div class="text-right">
+<div class="text-primary font-bold text-sm">0.65</div>
+<div class="text-[10px] uppercase text-on-surface-variant font-semibold">Score</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary/50" style="width: 65%"></div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">Temporal mood analysis</span>
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">Social graph mapping</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="surface-container rounded-lg border border-outline-variant p-4 transition-colors hover:bg-surface-container-high">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-body-md font-semibold text-on-surface flex-1 pr-4 leading-snug">Interactive recommendation explanations</h3>
+<div class="text-right">
+<div class="text-primary font-bold text-sm">0.58</div>
+<div class="text-[10px] uppercase text-on-surface-variant font-semibold">Score</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary/40" style="width: 58%"></div>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">Explainable AI (XAI)</span>
+<span class="text-[11px] px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-md">Feature importance visualization</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Atmospheric Backdrop for Research Aesthetic -->
+<div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container dark:bg-surface-container px-4 border-t border-outline-variant dark:border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant pt-1 hover:text-on-surface dark:hover:text-on-surface transition-transform active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant pt-1 hover:text-on-surface dark:hover:text-on-surface transition-transform active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">assignment_late</span>
+<span class="font-label-caps text-label-caps mt-1">Challenges</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary border-t-2 border-primary pt-1 transition-transform active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+<span class="font-label-caps text-label-caps mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant pt-1 hover:text-on-surface dark:hover:text-on-surface transition-transform active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps mt-1">Assistant</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for opportunity bars
+        document.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.opportunity-bar');
+            bars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

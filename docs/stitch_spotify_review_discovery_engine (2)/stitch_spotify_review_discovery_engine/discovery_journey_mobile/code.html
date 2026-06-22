@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#131313",
+            "on-primary-fixed": "#002108",
+            "secondary": "#c8c6c5",
+            "on-secondary-fixed-variant": "#474746",
+            "outline": "#869585",
+            "on-primary": "#003914",
+            "on-surface-variant": "#bccbb9",
+            "on-surface": "#e5e2e1",
+            "on-background": "#e5e2e1",
+            "secondary-container": "#474746",
+            "surface-container-lowest": "#0e0e0e",
+            "secondary-fixed-dim": "#c8c6c5",
+            "primary-container": "#1db954",
+            "on-tertiary-fixed-variant": "#474747",
+            "surface-container-low": "#1c1b1b",
+            "inverse-primary": "#006e2d",
+            "on-error-container": "#ffdad6",
+            "on-secondary-fixed": "#1b1b1c",
+            "inverse-on-surface": "#313030",
+            "surface-container-high": "#2a2a2a",
+            "tertiary": "#c8c6c6",
+            "primary-fixed-dim": "#53e076",
+            "surface-dim": "#131313",
+            "tertiary-fixed": "#e4e2e2",
+            "outline-variant": "#3d4a3d",
+            "on-tertiary-container": "#383838",
+            "error-container": "#93000a",
+            "on-primary-container": "#004118",
+            "primary-fixed": "#72fe8f",
+            "surface-bright": "#393939",
+            "on-secondary-container": "#b7b5b4",
+            "on-secondary": "#303030",
+            "surface-container-highest": "#353534",
+            "on-tertiary": "#303030",
+            "on-primary-fixed-variant": "#005320",
+            "on-tertiary-fixed": "#1b1c1c",
+            "error": "#ffb4ab",
+            "surface-container": "#201f1f",
+            "on-error": "#690005",
+            "tertiary-container": "#a2a1a1",
+            "secondary-fixed": "#e5e2e1",
+            "primary": "#53e076",
+            "surface": "#131313",
+            "surface-variant": "#353534",
+            "tertiary-fixed-dim": "#c8c6c6",
+            "surface-tint": "#53e076",
+            "inverse-surface": "#e5e2e1"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "panel-padding": "1.5rem",
+            "stack-gap": "1rem",
+            "gutter": "1.5rem",
+            "margin-x": "2rem",
+            "container-max-width": "1440px"
+          },
+          "fontFamily": {
+            "display-kpi": ["Inter"],
+            "body-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "section-header": ["Inter"],
+            "label-caps": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #131313;
+      color: #e5e2e1;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid #2e2e2e;
+    }
+    .accent-glow {
+      box-shadow: 0 0 20px rgba(29, 185, 84, 0.15);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #131313;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="flex justify-between items-center px-panel-padding h-16 w-full z-50 bg-surface border-b border-outline-variant fixed top-0 left-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">analytics</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Pulse Intelligence</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional user profile avatar for a corporate executive dashboard. The lighting is dramatic and moody, fitting a dark theme interface. High quality photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkHmpIEMy1Uu8dO7Z-mTA_jzwC0T3aUo3J6B8t0layWF6U_v4iOwptbxocAXjpKlLZJV0cMxPvzW1ku-ium9xiOdILxEfpsNbIZmonpn3hyO505KstH71jUCCghEGv2r2wayV-fpsM7Bo-E5aRGHpBU72daEKYnJreZyogQyIl58TYK41oxosfzWIBwdPVbB56bYSTu1gkOlBY5tzE7HYxmTy9J3JMd9kaA7FNarn9iGzLCt4KY9lpEmmzR0-QdW5MYdox9rC-lg"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 mb-20 px-4 pt-6 max-w-full overflow-x-hidden custom-scrollbar">
+<!-- Title & Subtitle -->
+<section class="mb-6">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Discovery Journey</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">How user goals connect to discovery challenges</p>
+</section>
+<!-- Hero Visualization Section -->
+<section class="mb-8">
+<div class="glass-card rounded-xl p-4 overflow-hidden accent-glow">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-section-header text-section-header text-on-surface">Intent-to-Friction Flow</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Visualizing the path from user motivation to systemic discovery failure.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">info</span>
+</div>
+<div class="relative w-full aspect-[3/4] bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant">
+<img alt="Discovery Journey Flow Diagram" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfz26gTI-Qj9yHMlCI5Qh5lV1pCnS8kJEKsKfa6ZG5SceUquNv6Zh-jdFWv9utuayoBqaukMdfdsGhNWvvjFF0rgcbMhzMmv-PLZE_NFmFti7OV9svaiyCE7cbnta-FjPk8hzFHttOSGOANPzrnrHRSAsgnn9T_oeHvB2QWTG9faSu-RABNKdXm8Dy8PmmxemqvpwhKgzwGjrshPmEcvYmLIG3Z94bFCI465PrUQrHwl8RO_-dOjn-qolvAj87K4_dv74X08lWnw"/>
+</div>
+</div>
+</section>
+<!-- Summary Stats Row (Bento Style) -->
+<section class="mb-8 grid grid-cols-1 gap-4">
+<div class="bg-primary-container bg-opacity-10 border border-primary border-opacity-30 rounded-xl p-5 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-20">
+<span class="material-symbols-outlined text-primary" style="font-size: 64px;">warning</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-label-caps text-label-caps text-primary mb-2">TOP GOAL–CHALLENGE GAP</h4>
+<div class="flex items-end justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-section-header text-section-header text-on-surface">Discover New Artists</span>
+<span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span>
+</div>
+<div class="text-error font-body-md text-body-md font-semibold">Stale Recommendations</div>
+</div>
+<div class="text-right">
+<div class="font-display-kpi text-[32px] leading-tight text-primary">157k</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Occurrences</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Table Section -->
+<section class="mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-section-header text-section-header text-on-surface">Critical Journey Gaps</h3>
+<button class="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:underline">
+          EXPORT <span class="material-symbols-outlined text-[14px]">download</span>
+</button>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-outline-variant">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">GOAL</th>
+<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">CHALLENGE</th>
+<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant text-right">COUNT</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface">Discover new artists</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-error">Stale recommendations</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface text-right font-medium">157k</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface">Find workout music</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-error">Poor shuffle</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface text-right font-medium">110k</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface">Break out of repeat</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-error">Filter bubble</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface text-right font-medium">99k</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface">Discover new artists</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-error">Filter bubble</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface text-right font-medium">66k</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface">Find workout music</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-error">Stale recommendations</td>
+<td class="px-4 py-4 font-body-sm text-body-sm text-on-surface text-right font-medium">66k</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Insight Callout -->
+<section class="mb-4">
+<div class="p-4 rounded-xl border-l-4 border-primary bg-surface-container-high">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface">
+              Users aiming to <span class="font-bold">Discover new artists</span> are 2.4x more likely to encounter friction compared to performance-based listening goals.
+            </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Component -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-20 px-gutter bg-surface-container border-t border-outline-variant">
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">extension</span>
+<span class="font-label-caps text-label-caps mt-1">Challenges</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<span class="font-label-caps text-label-caps mt-1">Analytics</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps mt-1">Assistant</span>
+</div>
+</nav>
+<script>
+    // Subtle parallax effect on hero card scroll
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.glass-card img');
+      if (hero) {
+        const scrolled = window.pageYOffset;
+        hero.style.transform = `translateY(${scrolled * 0.05}px)`;
+      }
+    });
+
+    // Ripple effect for table rows
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', function(e) {
+        this.classList.add('bg-primary-container', 'bg-opacity-5');
+        setTimeout(() => {
+          this.classList.remove('bg-primary-container', 'bg-opacity-5');
+        }, 300);
+      });
+    });
+  </script>
+</body></html>

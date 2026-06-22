@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Interview Validation | Discovery Intel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#2a2a2a",
+                    "on-error": "#690005",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-dim": "#131313",
+                    "primary": "#53e076",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "secondary-fixed": "#e5e2e1",
+                    "surface-tint": "#53e076",
+                    "outline": "#869585",
+                    "error-container": "#93000a",
+                    "tertiary-container": "#a2a1a1",
+                    "on-primary-container": "#004118",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-bright": "#393939",
+                    "on-secondary-fixed-variant": "#474746",
+                    "primary-fixed-dim": "#53e076",
+                    "inverse-primary": "#006e2d",
+                    "inverse-on-surface": "#313030",
+                    "outline-variant": "#3d4a3d",
+                    "on-primary": "#003914",
+                    "on-tertiary-container": "#383838",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-fixed": "#002108",
+                    "surface-variant": "#353534",
+                    "secondary-container": "#474746",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "surface-container": "#201f1f",
+                    "primary-container": "#1db954",
+                    "tertiary": "#c8c6c6",
+                    "on-error-container": "#ffdad6",
+                    "background": "#131313",
+                    "secondary": "#c8c6c5",
+                    "on-tertiary": "#303030",
+                    "on-secondary-container": "#b7b5b4",
+                    "on-surface-variant": "#bccbb9",
+                    "on-secondary": "#303030",
+                    "on-secondary-fixed": "#1b1b1c",
+                    "surface-container-highest": "#353534",
+                    "primary-fixed": "#72fe8f",
+                    "tertiary-fixed": "#e4e2e2",
+                    "inverse-surface": "#e5e2e1",
+                    "surface": "#131313",
+                    "on-background": "#e5e2e1",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#005320"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-x": "2rem",
+                    "stack-gap": "1rem",
+                    "panel-padding": "1.5rem",
+                    "gutter": "1.5rem",
+                    "container-max-width": "1440px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "section-header": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-kpi": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1c1b1b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3d4a3d;
+            border-radius: 10px;
+        }
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #53e076;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(83, 224, 118, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female product manager in a high-tech office setting, soft professional lighting with a cool color palette, wearing smart business casual attire. The background is a blurred corporate environment with subtle green accents that match the Discovery Intelligence branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYCecuCfm_ZqNTJnqvIEm-_7vJi1negFdnolr8-fRSw1N_mi8uxx5sFH5Ck2ktDSxjQAleTyO67SSHjbhpqzwQscQoSFO1rNkx76F_NfGDoaMS_g2tOBk1StdPEP28wWD6FX_j5l5iluoUB_aIYE387h5edPDfVQFVMhMiFi5LuOeYet27UP-ylJ2SABBBS7it1PcEh5UHmjmSiso24edx9KbL_Fk6WPiGJkX5sdLaF6bXOrGRn6Mv2edJ5W6WH73D-RAhwMreNg"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Discovery Intel</h1>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-28 px-4 max-w-lg mx-auto">
+<!-- Page Header -->
+<section class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Part 2 — User Research Validation</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Compare qualitative interview findings with review evidence from collective themes</p>
+</section>
+<!-- Add Interview Insight Card -->
+<section class="mb-8">
+<div class="bg-surface-container-low rounded-xl border border-outline-variant p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<h3 class="font-section-header text-section-header text-on-surface">Add interview insight</h3>
+</div>
+<form class="space-y-6" onsubmit="event.preventDefault();">
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Insight</label>
+<textarea class="w-full bg-surface-container-high border border-outline-variant rounded-lg p-3 text-on-surface placeholder:text-on-tertiary-container focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-200 min-h-[100px]" placeholder="Describe the core finding..."></textarea>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Linked theme</label>
+<div class="relative">
+<select class="w-full bg-surface-container-high border border-outline-variant rounded-lg p-3 text-on-surface appearance-none focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all duration-200">
+<option>Stale Discover Weekly</option>
+<option>Onboarding Friction</option>
+<option>Search Latency</option>
+<option>Social Sharing Bugs</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3.5 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Interview validation %</label>
+<span class="font-body-sm text-body-sm text-primary font-bold" id="validationValue">50%</span>
+</div>
+<input class="w-full" max="100" min="0" oninput="document.getElementById('validationValue').innerText = this.value + '%'" type="range" value="50"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Confidence score</label>
+<input class="w-full bg-surface-container-high border border-outline-variant rounded-lg p-3 text-on-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none" max="1" min="0" placeholder="0.85" step="0.01" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block">Notes</label>
+<input class="w-full bg-surface-container-high border border-outline-variant rounded-lg p-3 text-on-surface focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Quick metadata..." type="text"/>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-label-caps text-label-caps font-bold hover:brightness-110 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined">add</span>
+                        Add insight
+                    </button>
+</form>
+</div>
+</section>
+<!-- Comparison Table / Cards -->
+<section class="space-y-4">
+<div class="flex justify-between items-end mb-4">
+<h3 class="font-section-header text-section-header text-on-surface">Interview vs. review evidence</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3 ENTRIES</span>
+</div>
+<!-- Card Entry 1 -->
+<div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-start">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-full border border-primary/20">VALIDATED</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">THEME: STALE DISCOVER WEEKLY</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">"Users say Discover Weekly feels the same every week"</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-2 gap-y-4 gap-x-2">
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">REVIEW EVIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span class="font-body-sm text-body-sm font-semibold">8 reviews</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">INTERVIEW VAL.</p>
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="font-body-sm text-body-sm font-bold">85%</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">CONFIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">shield</span>
+<span class="font-body-sm text-body-sm font-semibold">0.82</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">NOTES</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">5 participants, remote</p>
+</div>
+</div>
+</div>
+<!-- Card Entry 2 -->
+<div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-start">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold rounded-full border border-yellow-500/20">PARTIAL</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">THEME: ONBOARDING FRICTION</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">"Login flow takes more than 3 steps unnecessarily"</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-2 gap-y-4 gap-x-2">
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">REVIEW EVIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span class="font-body-sm text-body-sm font-semibold">12 reviews</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">INTERVIEW VAL.</p>
+<div class="flex items-center gap-1.5 text-yellow-500">
+<span class="material-symbols-outlined text-sm">pending</span>
+<span class="font-body-sm text-body-sm font-bold">42%</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">CONFIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">shield</span>
+<span class="font-body-sm text-body-sm font-semibold">0.55</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">NOTES</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Mixed feedback on MFA</p>
+</div>
+</div>
+</div>
+<!-- Card Entry 3 -->
+<div class="bg-surface-container rounded-xl border border-outline-variant overflow-hidden opacity-60">
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-start">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-on-surface-variant/10 text-on-surface-variant text-[10px] font-bold rounded-full border border-on-surface-variant/20">LOW DATA</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">THEME: SEARCH LATENCY</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">"Global search results feel sluggish on 4G connections"</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-2 gap-y-4 gap-x-2">
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">REVIEW EVIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">forum</span>
+<span class="font-body-sm text-body-sm font-semibold">3 reviews</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">INTERVIEW VAL.</p>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">error</span>
+<span class="font-body-sm text-body-sm font-bold">15%</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">CONFIDENCE</p>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-sm">shield</span>
+<span class="font-body-sm text-body-sm font-semibold">0.12</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-tertiary-container mb-1">NOTES</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Insufficient sample size</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-low border-t border-outline-variant flex justify-around items-center h-20 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-caps text-label-caps mt-1">Challenges</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps mt-1">Assistant</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        // Subtle hover and click effect management for mobile
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('touchstart', () => {
+                elem.classList.add('opacity-70');
+            });
+            elem.addEventListener('touchend', () => {
+                elem.classList.remove('opacity-70');
+            });
+        });
+
+        // Form focus styling
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+                input.parentElement.style.transition = 'transform 0.2s ease';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+    </script>
+</body></html>

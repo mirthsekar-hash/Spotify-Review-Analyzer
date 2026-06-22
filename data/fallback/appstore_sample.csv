@@ -1,0 +1,56 @@
+source,text,rating,review_date,reviewer_name,external_id
+appstore,Discover Weekly on iOS feels stale every Monday (iOS review #1),2,2024-02-02,ios_user_1,as_sample_1
+appstore,Shuffle keeps repeating the same playlist tracks (iOS review #2),2,2024-03-03,ios_user_2,as_sample_2
+appstore,Recommendations are too predictable on my iPhone (iOS review #3),3,2024-04-04,ios_user_3,as_sample_3
+appstore,Hard to discover indie artists outside my bubble (iOS review #4),3,2024-05-05,ios_user_4,as_sample_4
+appstore,Suggested songs is the best discovery feature (iOS review #5),4,2024-06-06,ios_user_5,as_sample_5
+appstore,The algorithm keeps pushing the same artists (iOS review #6),1,2024-07-07,ios_user_6,as_sample_6
+appstore,Love Spotify but discovery needs improvement (iOS review #7),3,2024-08-08,ios_user_7,as_sample_7
+appstore,Radio plays the same songs on repeat (iOS review #8),2,2024-09-09,ios_user_8,as_sample_8
+appstore,Daily Mix never introduces anything new (iOS review #9),2,2024-10-10,ios_user_9,as_sample_9
+appstore,Release Radar is my only trusted discovery tool (iOS review #10),4,2024-11-11,ios_user_10,as_sample_10
+appstore,Smart Shuffle is confusing and repetitive (iOS review #11),2,2024-12-12,ios_user_11,as_sample_11
+appstore,Recommendations ignore my skip history (iOS review #12),1,2024-01-13,ios_user_12,as_sample_12
+appstore,Playlist recommendations skew too mainstream (iOS review #13),2,2024-02-14,ios_user_13,as_sample_13
+appstore,Cannot discover underground music easily (iOS review #14),3,2024-03-15,ios_user_14,as_sample_14
+appstore,Discover Weekly used to surprise me now it does not (iOS review #15),2,2024-04-16,ios_user_15,as_sample_15
+appstore,Personalization feels stuck in a loop (iOS review #16),1,2024-05-17,ios_user_16,as_sample_16
+appstore,Wish there was mood-based music exploration (iOS review #17),4,2024-06-18,ios_user_17,as_sample_17
+appstore,I replay the same playlists because discovery fails (iOS review #18),2,2024-07-19,ios_user_18,as_sample_18
+appstore,Spotify never challenges my taste on iOS (iOS review #19),3,2024-08-20,ios_user_19,as_sample_19
+appstore,Discover Weekly on iOS feels stale every Monday (iOS review #20),2,2024-09-21,ios_user_20,as_sample_20
+appstore,Shuffle keeps repeating the same playlist tracks (iOS review #21),2,2024-10-22,ios_user_21,as_sample_21
+appstore,Recommendations are too predictable on my iPhone (iOS review #22),3,2024-11-23,ios_user_22,as_sample_22
+appstore,Hard to discover indie artists outside my bubble (iOS review #23),3,2024-12-24,ios_user_23,as_sample_23
+appstore,Suggested songs is the best discovery feature (iOS review #24),4,2024-01-25,ios_user_24,as_sample_24
+appstore,The algorithm keeps pushing the same artists (iOS review #25),1,2024-02-26,ios_user_25,as_sample_25
+appstore,Love Spotify but discovery needs improvement (iOS review #26),3,2024-03-27,ios_user_26,as_sample_26
+appstore,Radio plays the same songs on repeat (iOS review #27),2,2024-04-28,ios_user_27,as_sample_27
+appstore,Daily Mix never introduces anything new (iOS review #28),2,2024-05-01,ios_user_28,as_sample_28
+appstore,Release Radar is my only trusted discovery tool (iOS review #29),4,2024-06-02,ios_user_29,as_sample_29
+appstore,Smart Shuffle is confusing and repetitive (iOS review #30),2,2024-07-03,ios_user_30,as_sample_30
+appstore,Recommendations ignore my skip history (iOS review #31),1,2024-08-04,ios_user_31,as_sample_31
+appstore,Playlist recommendations skew too mainstream (iOS review #32),2,2024-09-05,ios_user_32,as_sample_32
+appstore,Cannot discover underground music easily (iOS review #33),3,2024-10-06,ios_user_33,as_sample_33
+appstore,Discover Weekly used to surprise me now it does not (iOS review #34),2,2024-11-07,ios_user_34,as_sample_34
+appstore,Personalization feels stuck in a loop (iOS review #35),1,2024-12-08,ios_user_35,as_sample_35
+appstore,Wish there was mood-based music exploration (iOS review #36),4,2024-01-09,ios_user_36,as_sample_36
+appstore,I replay the same playlists because discovery fails (iOS review #37),2,2024-02-10,ios_user_37,as_sample_37
+appstore,Spotify never challenges my taste on iOS (iOS review #38),3,2024-03-11,ios_user_38,as_sample_38
+appstore,Discover Weekly on iOS feels stale every Monday (iOS review #39),2,2024-04-12,ios_user_39,as_sample_39
+appstore,Shuffle keeps repeating the same playlist tracks (iOS review #40),2,2024-05-13,ios_user_40,as_sample_40
+appstore,Recommendations are too predictable on my iPhone (iOS review #41),3,2024-06-14,ios_user_41,as_sample_41
+appstore,Hard to discover indie artists outside my bubble (iOS review #42),3,2024-07-15,ios_user_42,as_sample_42
+appstore,Suggested songs is the best discovery feature (iOS review #43),4,2024-08-16,ios_user_43,as_sample_43
+appstore,The algorithm keeps pushing the same artists (iOS review #44),1,2024-09-17,ios_user_44,as_sample_44
+appstore,Love Spotify but discovery needs improvement (iOS review #45),3,2024-10-18,ios_user_45,as_sample_45
+appstore,Radio plays the same songs on repeat (iOS review #46),2,2024-11-19,ios_user_46,as_sample_46
+appstore,Daily Mix never introduces anything new (iOS review #47),2,2024-12-20,ios_user_47,as_sample_47
+appstore,Release Radar is my only trusted discovery tool (iOS review #48),4,2024-01-21,ios_user_48,as_sample_48
+appstore,Smart Shuffle is confusing and repetitive (iOS review #49),2,2024-02-22,ios_user_49,as_sample_49
+appstore,Recommendations ignore my skip history (iOS review #50),1,2024-03-23,ios_user_50,as_sample_50
+appstore,Playlist recommendations skew too mainstream (iOS review #51),2,2024-04-24,ios_user_51,as_sample_51
+appstore,Cannot discover underground music easily (iOS review #52),3,2024-05-25,ios_user_52,as_sample_52
+appstore,Discover Weekly used to surprise me now it does not (iOS review #53),2,2024-06-26,ios_user_53,as_sample_53
+appstore,Personalization feels stuck in a loop (iOS review #54),1,2024-07-27,ios_user_54,as_sample_54
+appstore,Wish there was mood-based music exploration (iOS review #55),4,2024-08-28,ios_user_55,as_sample_55

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Theme Explorer | Pulse Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#a2a1a1",
+                    "surface-bright": "#393939",
+                    "on-secondary": "#303030",
+                    "background": "#131313",
+                    "outline": "#869585",
+                    "tertiary-fixed": "#e4e2e2",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#004118",
+                    "surface-tint": "#53e076",
+                    "on-primary-fixed-variant": "#005320",
+                    "tertiary": "#c8c6c6",
+                    "on-tertiary-container": "#383838",
+                    "on-error": "#690005",
+                    "primary": "#53e076",
+                    "on-primary-fixed": "#002108",
+                    "surface": "#131313",
+                    "on-secondary-fixed-variant": "#474746",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-variant": "#353534",
+                    "secondary-fixed": "#e5e2e1",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#006e2d",
+                    "on-surface": "#e5e2e1",
+                    "secondary": "#c8c6c5",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-container": "#474746",
+                    "on-background": "#e5e2e1",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-tertiary": "#303030",
+                    "on-secondary-fixed": "#1b1b1c",
+                    "inverse-on-surface": "#313030",
+                    "primary-container": "#1db954",
+                    "surface-dim": "#131313",
+                    "primary-fixed-dim": "#53e076",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "outline-variant": "#3d4a3d",
+                    "on-surface-variant": "#bccbb9",
+                    "error-container": "#93000a",
+                    "surface-container-highest": "#353534",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "primary-fixed": "#72fe8f",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-container": "#201f1f",
+                    "on-primary": "#003914",
+                    "on-secondary-container": "#b7b5b4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "panel-padding": "1.5rem",
+                    "container-max-width": "1440px",
+                    "stack-gap": "1rem",
+                    "gutter": "1.5rem",
+                    "margin-x": "2rem"
+            },
+            "fontFamily": {
+                    "section-header": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-kpi": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "section-header": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-kpi": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #131313; color: #e5e2e1; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .theme-card-active {
+            border-left: 4px solid #53e076;
+            background-color: #2a2a2a;
+        }
+        .chart-conic {
+            background: conic-gradient(#53e076 0% 45%, #474746 45% 75%, #353534 75% 100%);
+            border-radius: 50%;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-panel-padding h-16 w-full z-50 bg-surface fixed top-0 border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">analytics</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Pulse Intelligence</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional close-up headshot of a female product researcher with a focused and intelligent expression. She is in a high-tech corporate office environment with soft bokeh background lights in shades of dark charcoal and deep emerald green. The lighting is crisp and modern, emphasizing a sophisticated B2B intelligence platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoNaMn1Wi9wW26vuliwp8Muu3Q113467bXy_adYWTLjYtmVz6177bqEUd4kEn0UC0GNRaeXR7I2Zz6uiVZBPuNd3HOF02GQsoID1SWTR182NqW8W29H2jvlk-eijQX7ySUxMannVWfbmeSNZ3OB-kqjSVlmVTvFIFib9GrheMlOw3VkjUby9BywTH7pFUA_0TFX8qtMamdkas0xSwUoqQd5ht7KK-oiCo5VSoqXz-2ll_9lPXdtO6JmB9i9JqKW8hsNeRSHWRQLA"/>
+</div>
+</header>
+<main class="pt-20 pb-24 px-gutter max-w-md mx-auto">
+<!-- Header -->
+<section class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Theme Explorer</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Discovery themes from collective analysis</p>
+</section>
+<!-- Theme List (Top Active) -->
+<section class="space-y-4 mb-10">
+<!-- Active Card -->
+<div class="theme-card-active p-panel-padding rounded-r-xl shadow-lg">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-caps text-label-caps bg-primary-container text-on-primary-container px-2 py-1 rounded-full uppercase">Music Explorer</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="font-bold text-lg">82</span>
+<span class="text-[10px] opacity-70">/100</span>
+</div>
+</div>
+<h3 class="font-section-header text-section-header text-on-surface mb-1">Stale Discover Weekly</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Users reporting repetitive algorithm patterns and lack of fresh discovery in personalized playlists.</p>
+</div>
+<!-- Inactive Card 1 -->
+<div class="bg-surface-container border border-outline-variant p-panel-padding rounded-xl opacity-60">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full uppercase">Casual Listener</span>
+<span class="font-bold text-on-surface opacity-70">64/100</span>
+</div>
+<h3 class="font-body-md font-semibold text-on-surface">UI Navigation Fatigue</h3>
+</div>
+</section>
+<!-- Detail Panel: Segment Distribution -->
+<section class="mb-10 bg-surface-container-high rounded-xl p-panel-padding border border-outline-variant">
+<h4 class="font-section-header text-section-header text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+                Segment Distribution
+            </h4>
+<div class="flex items-center gap-8">
+<div class="relative w-32 h-32 flex-shrink-0">
+<div class="chart-conic w-full h-full"></div>
+<div class="absolute inset-3 bg-surface-container-high rounded-full flex items-center justify-center">
+<div class="text-center">
+<span class="block font-bold text-xl text-on-surface">75%</span>
+<span class="block text-[10px] text-on-surface-variant uppercase">Core</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">Music Explorer</p>
+<p class="font-bold text-on-surface">45%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">Casual Listener</p>
+<p class="font-bold text-on-surface">30%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Supporting Evidence -->
+<section class="mb-10">
+<h4 class="font-section-header text-section-header text-on-surface mb-4">Supporting Evidence</h4>
+<div class="flex overflow-x-auto gap-4 pb-4 hide-scrollbar">
+<!-- Quote 1 -->
+<div class="min-w-[280px] bg-surface-container-low border border-outline-variant p-panel-padding rounded-xl">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 bg-[#E62117] rounded flex items-center justify-center text-[10px] font-bold text-white uppercase">YT</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Play Store Review</span>
+</div>
+<p class="font-body-sm text-body-sm italic text-on-surface">"My Discover Weekly has been the same 20 artists for three months. I'm paying for discovery but getting a loop."</p>
+</div>
+<!-- Quote 2 -->
+<div class="min-w-[280px] bg-surface-container-low border border-outline-variant p-panel-padding rounded-xl">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 bg-[#FF4500] rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]">forum</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">r/Spotify</span>
+</div>
+<p class="font-body-sm text-body-sm italic text-on-surface">"The 'Made for You' section feels like it's broken. It just keeps suggesting songs I already have in my Liked list."</p>
+</div>
+<!-- Quote 3 -->
+<div class="min-w-[280px] bg-surface-container-low border border-outline-variant p-panel-padding rounded-xl">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 bg-[#007AFF] rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]">apps</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">App Store</span>
+</div>
+<p class="font-body-sm text-body-sm italic text-on-surface">"Recommendation engine is stale. I have to go to SoundCloud just to find something actually new."</p>
+</div>
+</div>
+</section>
+<!-- Related Links -->
+<section class="mb-6">
+<h4 class="font-section-header text-section-header text-on-surface mb-4">Strategic Insights</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container border border-outline-variant p-3 rounded-lg flex flex-col gap-2 transition-colors hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Root Causes</span>
+<p class="font-body-sm font-semibold text-on-surface leading-tight">Cache Staleness</p>
+</div>
+<div class="bg-surface-container border border-outline-variant p-3 rounded-lg flex flex-col gap-2 transition-colors hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary text-xl">psychology</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Unmet Needs</span>
+<p class="font-body-sm font-semibold text-on-surface leading-tight">Novelty Control</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-20 px-gutter bg-surface-container border-t border-outline-variant">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">extension</span>
+<span class="font-label-caps text-label-caps">Challenges</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-transform active:scale-90">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-caps text-label-caps">Assistant</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for UI feedback
+        document.querySelectorAll('.bg-surface-container, .theme-card-active').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.add('scale-[0.98]');
+                setTimeout(() => card.classList.remove('scale-[0.98]'), 100);
+            });
+        });
+    </script>
+</body></html>
