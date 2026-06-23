@@ -73,8 +73,8 @@ def load_review_discovery(
 
 def render_empty_state() -> None:
     st.info(
-        "No reviews in the database yet. Use the sidebar to **Fetch Latest Reviews** "
-        "or **Import CSV**, then return here to browse the corpus."
+        "No reviews in the database yet. Use the sidebar to **Fetch Latest Reviews**, "
+        "then return here to browse the corpus."
     )
 
 

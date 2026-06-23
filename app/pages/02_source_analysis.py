@@ -20,8 +20,8 @@ def load_source_analysis(refresh_key: int) -> SourceAnalysisData:
 
 def render_empty_state() -> None:
     st.info(
-        "No reviews in the database yet. Use the sidebar to **Fetch Latest Reviews** "
-        "or import CSV, then click **Run Analysis**."
+        "No reviews in the database yet. Use the sidebar to **Fetch Latest Reviews**, "
+        "then click **Run Analysis**."
     )
 
 

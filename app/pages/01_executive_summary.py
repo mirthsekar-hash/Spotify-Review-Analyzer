@@ -50,8 +50,8 @@ def load_segment_priority(refresh_key: int) -> SegmentPriorityData:
 
 def render_empty_state() -> None:
     st.info(
-        "No reviews in the database yet. Use the sidebar to **Import CSV** "
-        "or **Fetch Play Store Reviews**, then click **Run Analysis**."
+        "No reviews in the database yet. Use the sidebar to **Fetch Latest Reviews**, "
+        "then click **Run Analysis**."
     )
 
 

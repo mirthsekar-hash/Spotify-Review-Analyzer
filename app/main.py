@@ -16,7 +16,6 @@ from app.components.branding import (
 from app.components.ingestion_handlers import (
     handle_all_stores_fetch,
     handle_appstore_fetch,
-    handle_csv_upload,
     handle_playstore_fetch,
     handle_reddit_fetch,
 )
@@ -68,11 +67,6 @@ def render_sidebar() -> None:
         use_container_width=True,
         help="Scrape Spotify-related Reddit posts and comments (falls back to CSV on rate limit)",
     )
-    uploaded_csv = st.sidebar.file_uploader(
-        "Import CSV (Fallback)",
-        type=["csv"],
-        help="Upload CSV with source, text, rating columns",
-    )
 
     if fetch_latest_clicked:
         handle_fetch_latest_reviews()
@@ -88,9 +82,6 @@ def render_sidebar() -> None:
 
     if fetch_reddit_clicked:
         handle_reddit_fetch()
-
-    if uploaded_csv is not None:
-        handle_csv_upload(uploaded_csv)
 
     analysis_limit = st.sidebar.number_input(
         "Max reviews to analyze",
