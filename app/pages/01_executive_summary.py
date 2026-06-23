@@ -10,8 +10,9 @@ from app.components.health_indicator import render_health_indicator
 from app.components.kpi_card import render_kpi_card
 from app.components.sentiment_chart import render_sentiment_chart
 from app.components.trust_score_gauge import render_trust_score_gauge
+from app.components.segment_priority_panel import render_segment_priority_panel
 from src.llm.errors import LlmQuotaExceededError
-from src.services.dashboard_service import DashboardService, ExecutiveSummaryData
+from src.services.dashboard_service import DashboardService, ExecutiveSummaryData, SegmentPriorityData
 
 
 @st.cache_data(ttl=3600, show_spinner="Generating AI executive summary...")
@@ -40,6 +41,11 @@ def load_ai_executive_summary(refresh_key: int) -> dict | None:
 @st.cache_data(ttl=30, show_spinner="Loading dashboard data...")
 def load_executive_summary(refresh_key: int) -> ExecutiveSummaryData:
     return DashboardService().get_executive_summary()
+
+
+@st.cache_data(ttl=30, show_spinner="Ranking user segments...")
+def load_segment_priority(refresh_key: int) -> SegmentPriorityData:
+    return DashboardService().get_segment_priority()
 
 
 def render_empty_state() -> None:
@@ -155,6 +161,11 @@ def main() -> None:
             trust_display,
             help_text="100 minus rec-complaint rate among negative reviews (0–100)",
         )
+
+    render_section_title("Segment Priority")
+    segment_priority = load_segment_priority(refresh_key)
+    render_segment_priority_panel(segment_priority)
+    st.divider()
 
     chart_col, gauge_col = st.columns([1.2, 1])
     with chart_col:

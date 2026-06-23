@@ -6,6 +6,7 @@ from src.services.dashboard_service import (
     DashboardService,
     compute_most_affected_segment,
     compute_recommendation_trust_score,
+    compute_segment_priorities,
     compute_sentiment_breakdown,
     compute_source_metrics,
     compute_top_discovery_challenges,
@@ -49,6 +50,46 @@ def test_compute_most_affected_segment():
     segment, rate = compute_most_affected_segment(rows)
     assert segment == "Music Explorer"
     assert rate == 100.0
+
+
+def test_compute_segment_priorities_ranks_by_size_and_pain():
+    rows = [
+        {"user_segment": "Music Explorer", "sentiment": "negative", "recommendation_complaint": True},
+        {"user_segment": "Music Explorer", "sentiment": "negative", "recommendation_complaint": True},
+        {"user_segment": "Music Explorer", "sentiment": "positive", "recommendation_complaint": False},
+        {"user_segment": "Casual Listener", "sentiment": "negative", "recommendation_complaint": False},
+    ]
+    data = compute_segment_priorities(rows)
+
+    assert data.recommended_segment == "Music Explorer"
+    assert len(data.items) == 2
+    assert data.items[0].segment_name == "Music Explorer"
+    assert data.items[0].is_recommended is True
+    assert data.items[0].priority_score > data.items[1].priority_score
+
+
+@patch("src.services.dashboard_service.check_connection", return_value=True)
+def test_get_segment_priority(mock_check):
+    analysis_repo = MagicMock()
+    analysis_repo.get_dashboard_fields.return_value = [
+        {"user_segment": "Music Explorer", "sentiment": "negative", "recommendation_complaint": True},
+        {"user_segment": "Music Explorer", "sentiment": "negative", "recommendation_complaint": True},
+    ]
+    segments_repo = MagicMock()
+    segment = MagicMock()
+    segment.segment_name = "Music Explorer"
+    segment.recommendation_trust_score = 20.0
+    segment.top_frustrations = ["Repetitive playlists"]
+    segments_repo.get_all.return_value = [segment]
+
+    data = DashboardService(
+        analysis_repo=analysis_repo,
+        segments_repo=segments_repo,
+    ).get_segment_priority()
+
+    assert data.db_connected is True
+    assert data.recommended_segment == "Music Explorer"
+    assert data.items[0].top_frustration == "Repetitive playlists"
 
 
 def test_compute_recommendation_trust_score():
