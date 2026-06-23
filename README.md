@@ -4,6 +4,7 @@ AI-powered Product Research Intelligence Platform that ingests public Spotify fe
 
 ## Documentation
 
+- [How It Works](docs/how-it-works.md)
 - [Problem Statement](docs/problemStatement.md)
 - [Architecture](docs/architecture.md)
 - [Implementation Plan](docs/implementation-plan.md)
