@@ -6,12 +6,12 @@ from src.services.dashboard_service import (
     DashboardService,
     compute_most_affected_segment,
     compute_recommendation_trust_score,
-    compute_segment_priorities,
     compute_sentiment_breakdown,
     compute_source_metrics,
     compute_top_discovery_challenges,
     compute_top_discovery_challenge,
 )
+from src.services.segment_priority import compute_segment_priorities
 
 
 def test_compute_sentiment_breakdown_percentages():

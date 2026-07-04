@@ -7,7 +7,7 @@ import html
 import pandas as pd
 import streamlit as st
 
-from src.services.dashboard_service import SegmentPriorityData
+from src.services.segment_priority import SegmentPriorityData
 
 
 def render_segment_priority_panel(data: SegmentPriorityData) -> None:

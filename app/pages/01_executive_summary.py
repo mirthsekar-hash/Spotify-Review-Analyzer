@@ -12,7 +12,8 @@ from app.components.sentiment_chart import render_sentiment_chart
 from app.components.trust_score_gauge import render_trust_score_gauge
 from app.components.segment_priority_panel import render_segment_priority_panel
 from src.llm.errors import LlmQuotaExceededError
-from src.services.dashboard_service import DashboardService, ExecutiveSummaryData, SegmentPriorityData
+from src.services.dashboard_service import DashboardService, ExecutiveSummaryData
+from src.services.segment_priority import SegmentPriorityData
 
 
 @st.cache_data(ttl=3600, show_spinner="Generating AI executive summary...")
