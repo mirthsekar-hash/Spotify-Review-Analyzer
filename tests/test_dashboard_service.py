@@ -68,7 +68,7 @@ def test_compute_segment_priorities_ranks_by_size_and_pain():
     assert data.items[0].priority_score > data.items[1].priority_score
 
 
-@patch("src.services.dashboard_service.check_connection", return_value=True)
+@patch("src.services.segment_priority.check_connection", return_value=True)
 def test_get_segment_priority(mock_check):
     analysis_repo = MagicMock()
     analysis_repo.get_dashboard_fields.return_value = [

@@ -19,6 +19,7 @@ from src.db.repositories.themes_repo import ThemesRepository
 from src.db.repositories.unmet_needs_repo import UnmetNeedsRepository
 from src.llm.structured import structured_completion
 from src.schemas.executive_summary import ExecutiveSummaryOutput, format_executive_summary_markdown
+from src.services.segment_priority import SegmentPriorityData, fetch_segment_priority
 
 SENTIMENTS: tuple[Sentiment, ...] = ("positive", "negative", "neutral", "mixed")
 SOURCES: tuple[ReviewSource, ...] = ("playstore", "appstore", "reddit")
@@ -117,13 +118,6 @@ class DiscoveryChallengesData:
     challenges: list[DiscoveryChallengeStats] = field(default_factory=list)
     db_connected: bool = False
     total_analyzed: int = 0
-
-
-from src.services.segment_priority import (
-    SegmentPriorityData,
-    SegmentPriorityItem,
-    compute_segment_priorities,
-)
 
 
 def compute_sentiment_breakdown(rows: list[dict[str, Any]]) -> SentimentBreakdown:
@@ -445,14 +439,10 @@ class DashboardService:
         )
 
     def get_segment_priority(self) -> SegmentPriorityData:
-        if not check_connection():
-            return SegmentPriorityData(db_connected=False)
-
-        rows = self._analysis_repo.get_dashboard_fields()
-        segments = self._segments_repo.get_all()
-        result = compute_segment_priorities(rows, segments)
-        result.db_connected = True
-        return result
+        return fetch_segment_priority(
+            analysis_repo=self._analysis_repo,
+            segments_repo=self._segments_repo,
+        )
 
     def generate_executive_summary(self) -> ExecutiveAiSummaryResult | None:
         if not check_connection():

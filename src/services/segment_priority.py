@@ -5,7 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from src.db.client import check_connection
 from src.db.models import Segment
+from src.db.repositories.analysis_repo import AnalysisRepository
+from src.db.repositories.segments_repo import SegmentsRepository
 
 
 @dataclass
@@ -140,3 +143,21 @@ def compute_segment_priorities(
         recommended_rationale=rationale,
         total_analyzed=total_analyzed,
     )
+
+
+def fetch_segment_priority(
+    *,
+    analysis_repo: AnalysisRepository | None = None,
+    segments_repo: SegmentsRepository | None = None,
+) -> SegmentPriorityData:
+    """Load segment priority rankings from Supabase."""
+    if not check_connection():
+        return SegmentPriorityData(db_connected=False)
+
+    analysis = analysis_repo or AnalysisRepository()
+    segments_repo = segments_repo or SegmentsRepository()
+    rows = analysis.get_dashboard_fields()
+    segment_rows = segments_repo.get_all()
+    result = compute_segment_priorities(rows, segment_rows)
+    result.db_connected = True
+    return result
