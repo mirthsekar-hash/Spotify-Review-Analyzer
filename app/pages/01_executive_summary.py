@@ -12,8 +12,11 @@ from app.components.sentiment_chart import render_sentiment_chart
 from app.components.trust_score_gauge import render_trust_score_gauge
 from app.components.segment_priority_panel import render_segment_priority_panel
 from src.llm.errors import LlmQuotaExceededError
+from src.db.client import check_connection
+from src.db.repositories.analysis_repo import AnalysisRepository
+from src.db.repositories.segments_repo import SegmentsRepository
 from src.services.dashboard_service import DashboardService, ExecutiveSummaryData
-from src.services.segment_priority import SegmentPriorityData, fetch_segment_priority
+from src.services.segment_priority import SegmentPriorityData, compute_segment_priorities
 
 
 @st.cache_data(ttl=3600, show_spinner="Generating AI executive summary...")
@@ -46,7 +49,14 @@ def load_executive_summary(refresh_key: int) -> ExecutiveSummaryData:
 
 @st.cache_data(ttl=30, show_spinner="Ranking user segments...")
 def load_segment_priority(refresh_key: int) -> SegmentPriorityData:
-    return fetch_segment_priority()
+    if not check_connection():
+        return SegmentPriorityData(db_connected=False)
+    result = compute_segment_priorities(
+        AnalysisRepository().get_dashboard_fields(),
+        SegmentsRepository().get_all(),
+    )
+    result.db_connected = True
+    return result
 
 
 def render_empty_state() -> None:

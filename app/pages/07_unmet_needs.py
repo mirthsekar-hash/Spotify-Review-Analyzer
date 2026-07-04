@@ -4,13 +4,14 @@ from __future__ import annotations
 
 from uuid import UUID
 
-import plotly.graph_objects as go
 import streamlit as st
 
 from app.components.branding import render_page_header, render_section_title
-from app.components.chart_theme import apply_dark_theme
-
 from app.components.evidence_list import render_evidence_list
+from app.components.unmet_needs_chart import (
+    render_unmet_needs_ranking_chart,
+    render_unmet_needs_summary_table,
+)
 from src.db.repositories.reviews_repo import ReviewsRepository
 from src.services.explorer_service import ExplorerService, UnmetNeedsExplorerData
 
@@ -44,54 +45,13 @@ def render_empty_state() -> None:
     )
 
 
-def render_opportunity_matrix(data: UnmetNeedsExplorerData) -> None:
-    labeled_needs = [item for item in data.needs if item.opportunity_score is not None]
-    if not labeled_needs:
-        st.info("No opportunity scores available to plot.")
-        return
-
-    fig = go.Figure(
-        data=[
-            go.Scatter(
-                x=[item.frequency for item in labeled_needs],
-                y=[item.opportunity_score for item in labeled_needs],
-                mode="markers+text",
-                text=[item.need[:40] + ("…" if len(item.need) > 40 else "") for item in labeled_needs],
-                textposition="top center",
-                marker={
-                    "size": 12,
-                    "color": [item.opportunity_score for item in labeled_needs],
-                    "colorscale": "Viridis",
-                    "showscale": True,
-                    "colorbar": {"title": "Opportunity"},
-                },
-                hovertemplate=(
-                    "%{text}<br>Frequency: %{x}<br>Opportunity: %{y}<extra></extra>"
-                ),
-            )
-        ]
-    )
-    fig.update_layout(
-        title="Opportunity Matrix",
-        xaxis_title="Frequency",
-        yaxis_title="Opportunity score",
-        margin=dict(t=50, b=40, l=40, r=20),
-        height=460,
-    )
-    apply_dark_theme(
-        fig,
-        title="Opportunity Matrix",
-        xaxis_title="Frequency",
-        yaxis_title="Opportunity score",
-        height=460,
-        margin=dict(t=50, b=40, l=40, r=20),
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-
 def render_solution_cards(data: UnmetNeedsExplorerData) -> None:
     render_section_title("AI Solution Ideas")
-    for item in data.needs:
+    sorted_needs = sorted(
+        data.needs,
+        key=lambda item: (-(item.opportunity_score or 0), -item.frequency, item.need),
+    )
+    for item in sorted_needs:
         with st.container(border=True):
             score = f"{item.opportunity_score:.0f}" if item.opportunity_score is not None else "—"
             st.markdown(f"**{item.need}**")
@@ -127,7 +87,16 @@ def main() -> None:
         render_empty_state()
         return
 
-    render_opportunity_matrix(data)
+    render_section_title("Opportunity Ranking")
+    render_unmet_needs_ranking_chart(data.needs, key="unmet_needs_opportunity_bar")
+
+    render_section_title("Unmet Needs Summary")
+    render_unmet_needs_summary_table(data.needs)
+    st.caption(
+        "Priority bands: High (70+), Medium (40–69), Low (&lt;40). "
+        "Sorted by opportunity score, then frequency."
+    )
+
     render_solution_cards(data)
 
 
