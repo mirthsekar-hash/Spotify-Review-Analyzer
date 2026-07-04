@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
+import html
 from typing import Any
+
+from pathlib import Path
 
 import streamlit as st
 
 from src.services.dashboard_service import SOURCE_LABELS
+
+_STYLES_DIR = Path(__file__).resolve().parent.parent / "styles"
+_PANEL_CSS_PATH = _STYLES_DIR / "research_assistant_panel.css"
 
 SUGGESTED_QUESTIONS: tuple[str, ...] = (
     "Why do users struggle to discover new music?",
@@ -19,11 +25,26 @@ SUGGESTED_QUESTIONS: tuple[str, ...] = (
 
 SESSION_MESSAGES_KEY = "research_assistant_messages"
 SESSION_PENDING_KEY = "research_assistant_pending"
+COMPOSER_CONTAINER_KEY = "ra_chat_composer"
+COMPOSER_BOX_KEY = "ra_question_box"
+COMPOSER_INPUT_KEY = "ra_question_input"
+COMPOSER_FORM_KEY = "ra_question_form"
 
 
 def init_chat_session() -> None:
     if SESSION_MESSAGES_KEY not in st.session_state:
         st.session_state[SESSION_MESSAGES_KEY] = []
+
+
+def inject_research_assistant_panel_styles() -> None:
+    """Inject panel CSS when the chat opens (survives Streamlit navigation reruns)."""
+    if not _PANEL_CSS_PATH.exists():
+        return
+    css = _PANEL_CSS_PATH.read_text(encoding="utf-8")
+    st.markdown(
+        f"<!-- sra-ra-panel-styles-v3 -->\n<style>{css}</style>",
+        unsafe_allow_html=True,
+    )
 
 
 def queue_question(question: str) -> None:
@@ -60,8 +81,9 @@ def render_source_badge(source: str) -> str:
     return labels.get(source, source_label(source))
 
 
-def render_suggested_questions(*, key_prefix: str = "research") -> None:
-    st.markdown('<p class="sra-panel-title">Suggested questions</p>', unsafe_allow_html=True)
+def render_suggested_questions(*, key_prefix: str = "research", show_title: bool = True) -> None:
+    if show_title:
+        st.markdown('<p class="sra-panel-title">Suggested questions</p>', unsafe_allow_html=True)
     columns = st.columns(2)
     for index, question in enumerate(SUGGESTED_QUESTIONS):
         column = columns[index % 2]
@@ -117,10 +139,31 @@ def render_response_sections(answer: dict[str, Any]) -> None:
 
 def render_chat_message(message: dict[str, Any]) -> None:
     role = message.get("role", "assistant")
-    with st.chat_message(role):
-        if role == "user":
-            st.markdown(message.get("content", ""))
-            return
+    if role == "user":
+        content = html.escape(str(message.get("content", "")))
+        _, user_col = st.columns([0.12, 0.88])
+        with user_col:
+            st.markdown(
+                (
+                    '<div class="sra-chat-user-bubble">'
+                    '<span class="sra-chat-user-chip">You</span>'
+                    f"{content}"
+                    "</div>"
+                ),
+                unsafe_allow_html=True,
+            )
+        return
+
+    with st.container(border=True):
+        st.markdown(
+            (
+                '<div class="sra-chat-assistant-header">'
+                '<span class="sra-chat-assistant-icon" aria-hidden="true">🎧</span>'
+                "<span>AI Research Assistant</span>"
+                "</div>"
+            ),
+            unsafe_allow_html=True,
+        )
 
         if message.get("info"):
             st.info(message["info"])
@@ -145,6 +188,31 @@ def render_chat_message(message: dict[str, Any]) -> None:
             )
         if caption_parts:
             st.caption(" · ".join(caption_parts))
+
+
+def render_question_composer(*, has_messages: bool) -> str | None:
+    """Inline question box rendered inside the panel (not Streamlit's fixed chat_input bar)."""
+    title = "Ask a follow-up question" if has_messages else "Ask a question"
+    placeholder = (
+        "Ask a follow-up question..."
+        if has_messages
+        else "Ask about Spotify reviews, discovery, or user feedback..."
+    )
+
+    with st.container(key=COMPOSER_BOX_KEY, border=False):
+        st.markdown(f'<p class="sra-chat-composer-title">{title}</p>', unsafe_allow_html=True)
+        with st.form(COMPOSER_FORM_KEY, clear_on_submit=True, border=False):
+            question = st.text_input(
+                "Question",
+                placeholder=placeholder,
+                label_visibility="collapsed",
+                key=COMPOSER_INPUT_KEY,
+            )
+            submitted = st.form_submit_button("Send", type="primary", use_container_width=True)
+
+    if submitted and question.strip():
+        return question.strip()
+    return None
 
 
 def render_citations_panel(message: dict[str, Any] | None) -> None:

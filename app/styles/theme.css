@@ -314,6 +314,73 @@ div[data-testid="stChatMessage"] {
   border-radius: var(--sra-radius-lg) !important;
 }
 
+/* Research Assistant chat bubbles (custom — no Streamlit red/orange avatars) */
+.sra-chat-user-bubble {
+  background: var(--sra-surface-highest);
+  border: 1px solid rgba(80, 155, 245, 0.45);
+  border-radius: 16px 16px 4px 16px;
+  padding: 0.7rem 0.95rem;
+  color: var(--sra-on-surface);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0.45rem 0 0.75rem;
+}
+
+.sra-chat-user-chip {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sra-info);
+  margin-bottom: 0.35rem;
+}
+
+.sra-chat-assistant-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sra-primary-bright);
+}
+
+.sra-chat-assistant-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: rgba(29, 185, 84, 0.22);
+  border: 1px solid rgba(29, 185, 84, 0.45);
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.sra-chat-history {
+  max-height: min(34vh, 320px);
+  overflow-y: auto;
+  padding-right: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.sra-chat-composer-title {
+  margin: 0 0 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sra-primary-bright);
+}
+
+/* Fallback: recolor any native Streamlit chat avatars inside the panel */
+.st-key-sra_chat_panel [data-testid="stChatMessage"] > div:first-child {
+  background-color: #1db954 !important;
+  color: #003914 !important;
+}
+
 /* Section subheaders */
 h2, h3 {
   color: #ffffff !important;
@@ -385,7 +452,8 @@ section[data-testid="stMain"] .st-key-sra_research_fab button {
   }
 }
 
-.st-key-sra_chat_panel {
+.st-key-sra_chat_panel,
+.stElementContainer.st-key-sra_chat_panel {
   position: fixed !important;
   bottom: 92px !important;
   right: 24px !important;
@@ -394,30 +462,14 @@ section[data-testid="stMain"] .st-key-sra_research_fab button {
   width: min(520px, calc(100vw - 48px)) !important;
   max-height: min(72vh, 680px) !important;
   overflow-y: auto !important;
+  overflow-x: hidden !important;
   z-index: 2147483645 !important;
   background: #201f1f !important;
   border: 1px solid #333333 !important;
   border-radius: 12px !important;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55) !important;
   padding: 1rem 1.25rem !important;
-}
-
-/* Panel block when container key is not emitted to DOM (Streamlit 1.58) */
-section[data-testid="stMain"] [data-testid="stVerticalBlock"]:has(.sra-chat-panel-marker) {
-  position: fixed !important;
-  bottom: 92px !important;
-  right: 24px !important;
-  top: auto !important;
-  left: auto !important;
-  width: min(520px, calc(100vw - 48px)) !important;
-  max-height: min(72vh, 680px) !important;
-  overflow-y: auto !important;
-  z-index: 2147483645 !important;
-  background: #201f1f !important;
-  border: 1px solid #333333 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55) !important;
-  padding: 1rem 1.25rem !important;
+  isolation: isolate !important;
 }
 
 /* Hide Streamlit deploy/menu chrome where possible */

@@ -9,11 +9,14 @@ import streamlit as st
 from app.components.branding import render_section_title
 from app.components.research_assistant_ui import (
     SESSION_MESSAGES_KEY,
+    SESSION_PENDING_KEY,
     consume_pending_question,
     init_chat_session,
+    inject_research_assistant_panel_styles,
     latest_assistant_message,
     render_chat_message,
     render_citations_panel,
+    render_question_composer,
     render_suggested_questions,
 )
 from app.config import get_settings
@@ -139,7 +142,7 @@ def _render_prerequisites_warning() -> bool:
 
 
 def _render_floating_chat_panel() -> None:
-    st.markdown('<div class="sra-chat-panel-marker" aria-hidden="true"></div>', unsafe_allow_html=True)
+    inject_research_assistant_panel_styles()
     with st.container(key=PANEL_KEY):
         header_left, header_right = st.columns([5, 1])
         with header_left:
@@ -155,30 +158,42 @@ def _render_floating_chat_panel() -> None:
         if not _render_prerequisites_warning():
             return
 
-        render_suggested_questions(key_prefix="ra_popup")
-        st.divider()
+        messages = st.session_state[SESSION_MESSAGES_KEY]
+        has_messages = len(messages) > 0
 
-        for message in st.session_state[SESSION_MESSAGES_KEY]:
+        if not has_messages:
+            render_suggested_questions(key_prefix="ra_popup")
+            st.divider()
+
+        st.markdown('<div class="sra-chat-history">', unsafe_allow_html=True)
+        for message in messages:
             render_chat_message(message)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        prompt = st.chat_input(
-            "Ask about Spotify reviews, discovery, or user feedback...",
-            key="ra_popup_chat_input",
-        )
+        latest = latest_assistant_message()
+        if has_messages and latest:
+            render_section_title("Citations")
+            render_citations_panel(latest)
 
-        question = consume_pending_question(prompt)
+        question: str | None = None
+        if SESSION_PENDING_KEY in st.session_state:
+            question = consume_pending_question(None)
+        else:
+            question = render_question_composer(has_messages=has_messages)
+
         if question:
             _process_question(question)
             st.session_state[PANEL_OPEN_KEY] = True
             st.rerun()
 
-        render_section_title("Citations")
-        render_citations_panel(latest_assistant_message())
-
         if st.button("Clear chat", key="ra_popup_clear", use_container_width=True):
             st.session_state[SESSION_MESSAGES_KEY] = []
             st.session_state[PANEL_OPEN_KEY] = True
             st.rerun()
+
+        if has_messages:
+            with st.expander("Suggested questions", expanded=False):
+                render_suggested_questions(key_prefix="ra_popup", show_title=False)
 
 
 def render_research_assistant_fab() -> None:

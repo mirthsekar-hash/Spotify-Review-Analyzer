@@ -77,6 +77,16 @@ def render_partial_analysis_banner(summary) -> None:
         )
 
 
+def render_system_status(summary: ExecutiveSummaryData) -> None:
+    st.divider()
+    render_section_title("System Status")
+    render_health_indicator(
+        summary,
+        last_ingestion=st.session_state.get("last_ingestion"),
+        last_analysis=st.session_state.get("last_analysis"),
+    )
+
+
 def main() -> None:
     render_page_header(
         "Executive Summary",
@@ -86,22 +96,17 @@ def main() -> None:
     refresh_key = st.session_state.get("data_version", 0)
     summary = load_executive_summary(refresh_key)
 
-    render_health_indicator(
-        summary,
-        last_ingestion=st.session_state.get("last_ingestion"),
-        last_analysis=st.session_state.get("last_analysis"),
-    )
-    st.divider()
-
     if not summary.db_connected:
         st.error(
             "Cannot load dashboard data. Check Supabase credentials and run "
             "`supabase/migrations/001_initial_schema.sql`."
         )
+        render_system_status(summary)
         return
 
     if summary.total_reviews == 0:
         render_empty_state()
+        render_system_status(summary)
         return
 
     render_partial_analysis_banner(summary)
@@ -199,6 +204,8 @@ def main() -> None:
             f"**{summary.top_discovery_challenge}** appears in "
             f"**{summary.top_discovery_challenge_count}** analyzed reviews."
         )
+
+    render_system_status(summary)
 
 
 main()

@@ -21,7 +21,7 @@ SPOTIFY_LOGO_SVG = """
 
 def inject_global_theme() -> None:
     """Inject Stitch design-system CSS on every rerun (Streamlit drops prior style tags)."""
-    theme_version = "20250704a"
+    theme_version = "20250704f"
     css_path = _STYLES_DIR / "theme.css"
     if css_path.exists():
         st.markdown(
